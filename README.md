@@ -170,6 +170,7 @@ ___
     "type": 11
 }
 ```
+___
 ## About the C++ API
 To use this API you just need to add the following files into your project and `#include "Api.h"` where you want to use it:
 
