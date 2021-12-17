@@ -33,7 +33,9 @@ namespace Phoenix
 		partner_skill,
 		pets_walk,
 		pick_up,
-		collect
+		collect,
+		start_bot,
+		stop_bot
 	};
 
 	/**
