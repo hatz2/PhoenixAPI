@@ -60,7 +60,6 @@ ___
 You can send multiple messages to the bot to send or receive a packet and also do some actions like attacking, walking, picking up an item, etc. All this actions are performed by calling game functions in the main game thread to guarantee thread safety.
 
 Examples:
-___
 * `Description`: Send a packet to the game server.
 * `packet`: The packet to send to the game server, in this case it uses an item from the .inventory
 ```json
@@ -170,7 +169,6 @@ ___
     "type": 11
 }
 ```
-___
 ## About the C++ API
 To use this API you just need to add the following files into your project and `#include "Api.h"` where you want to use it:
 
