@@ -19,21 +19,21 @@ The messages received from the bot and sent to the bot are in JSON format and th
 The type is just a numerical value and it must be a valid type. In the C++ example it is represented by an enum for easier access:
 
 ```cpp
-	enum class Type
-	{
-		packet_send,    // 0
-		packet_recv,    // 1
-		attack,         // 2
-		player_skill,   // 3
-		player_walk,    // 4
-		pet_skill,      // 5
-		partner_skill,  // 6
-		pets_walk,      // 7
-		pick_up,        // 8
-		collect         // 9
-        start_bot,      // 10
-        stop_bot        // 11
-	};
+enum class Type
+{
+    packet_send,    // 0
+    packet_recv,    // 1
+    attack,         // 2
+    player_skill,   // 3
+    player_walk,    // 4
+    pet_skill,      // 5
+    partner_skill,  // 6
+    pets_walk,      // 7
+    pick_up,        // 8
+    collect,        // 9
+    start_bot,      // 10
+    stop_bot        // 11
+}
 ```
 
 ## Messages sent from the BOT to the CLIENT
