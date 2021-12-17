@@ -20,7 +20,7 @@
 namespace Phoenix
 {
     /**
-     * @brief Represents the type of messages that we can send/receive to the socket.
+     * @brief Represents the type of messages that we can send/receive from the bot.
      */
     enum class Type
     {
@@ -91,7 +91,6 @@ namespace Phoenix
 
         static int instance_counter;
         SOCKET sock;
-        sockaddr_in addr;
         Safe_queue messages;
         std::thread recv_thread;
         bool run;

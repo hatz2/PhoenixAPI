@@ -101,6 +101,7 @@ void Phoenix::Api::initialize_socket(int port)
         exit(-1);
     }
 
+    sockaddr_in addr;
     inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr.s_addr);
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
