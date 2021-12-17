@@ -7,7 +7,7 @@ This API example has been made for C++ but you can use the API with any programm
 
 The messages received from the bot and sent to the bot are in JSON format and they match the following syntax:
 
-```json
+```js
 {
     "type": 0, // The type of the message
 
@@ -38,16 +38,16 @@ The type is just a numerical value and it must be a valid type. In the C++ examp
 The bot will only send you messages of type 0 and 1 which are send and recv packets. These 2 types of messages also have the field '"packet"' with the full packet.
 
 Examples:
+* Send packet
 ```json
-// Send packet
 {
     "type": 0,
     "packet": "u_s 0 3 2432"
 }
 ```
 
+* Recv packet
 ```json
-// Recv packet
 {
     "type": 1,
     "packet": "mv 3 2389 70 11 5"
@@ -59,68 +59,75 @@ You can send multiple messages to the bot to send or receive a packet and also d
 
 Examples:
 
+* Description: Send a packet to the game server.
+* `packet`: The packet to send to the game server, in this case it uses an item from the .inventory
 ```json
-// Description: Send a packet to the game server
 {
     "type": 0,
-    "packet": "u_i 1 1234 2 15 0 0" // Use an item from the inventory
+    "packet": "u_i 1 1234 2 15 0 0"
 }
 ```
 
+* Description: Simulates a received packet from the game server.
+* `packet`: The packet to get received, in this case it simulates client side getting 1kkk of gold.
 ```json
-// Description: Simulates a received packet from the game server
 {
     "type": 1,
-    "packet": "gold 1000000000 0" // Simulate client side getting 1kkk of gold
+    "packet": "gold 1000000000 0"
 }
 ```
 
+* Description: Attack a monster by using the top ready skill that you've set in the bot for the player, pet and partner.
+* `monster_id`: ID of the monster you want to attack.
 ```json
-// Description: Attack a monster by using the top ready skill that you've set in the bot for the player, pet and partner
 {
     "type": 2,
-    "monster_id": 2307, // ID of the monster you want to attack
+    "monster_id": 2307
 }
 ```
-
+* Description: Attack a monster with the given skill.
+* `monster_id`: ID of the monster you want to attack
+* `skill_id`: ID of the skill you want to use.
 ```json
-// Description: Attack a monster with the given skill
 {
     "type": 3,
     "monster_id": 2307,
-    "skill_id": 0, // ID of the skill you want to use
+    "skill_id": 0
 }
 ```
 
+* Description: Character walks to coordiantes (x, y).
 ```json
-// Description: Character walks to coordiantes (x, y)
 {
     "type": 4,
     "x": 34,
     "y": 68,
 }
 ```
-
+* Description: Attack a monster with the given pet skill.
+* `monster_id`: ID of the monster you want to attack
+* `skill_id`: ID of the pet skill you want to use.
 ```json
-// Description: Attack a monster with the given pet skill
 {
     "type": 5,
     "monster_id": 2307,
-    "skill_id": 0 // ID of the pet skill you want to use
+    "skill_id": 0
 }
 ```
 
+* Description: Attack a monster with the given partner skill.
+* `monster_id`: ID of the monster you want to attack
+* `skill_id`: ID of the partner skill you want to use.
 ```json
-// Description: Attack a monster with the given partner skill
 {
     "type": 6,
     "monster_id": 2307,
-    "skill_id": 1 // ID of the partner skill you want to use
+    "skill_id": 1
 }
 ```
 
+* Description: Pet and partner walks to coordinates (x, y).
 ```json
-// Description: Pet and partner walks to coordinates (x, y)
 {
     "type": 7,
     "x": 120,
@@ -128,19 +135,21 @@ Examples:
 }
 ```
 
+* Description: Walk and pick up the given item.
+* `item_id`: ID of the item you want to pick up.
 ```json
-// Description: Walk and pick up the given item
 {
     "type": 8,
-    "item_id": 1234 // ID of the item you want to pick up
+    "item_id": 1234
 }
 ```
 
+* Description: Walk and collect a npc (ice flowers and that kind of stuff).
+* `npc_id`: ID of the npc you want to collect.
 ```json
-// Description: Walk and collect a npc (ice flowers and that kind of stuff)
 {
     "type": 9,
-    "npc_id": 4321 // ID of the npc you want to collect
+    "npc_id": 4321
 }
 ```
 
@@ -160,4 +169,4 @@ This example was made using Microsoft Visual Studio Community 2019 and C++14.
 
 Since C++ doesn't support JSON natively you'll need to use a third party library to use it. In the case of this exapmle I've used [nlohmann json](https://github.com/nlohmann/json) and to handle the dependencies I've used [vcpkg](https://github.com/microsoft/vcpkg).
 
-In the file [main.cpp](PhoenixAPI/main.cpp) you have an example of a packetlogger that will print to the standard output every send/recv packet that comes from the bot.
+In the file [main.cpp](PhoenixAPI/main.cpp) you have an example of a packetlogger that will connect to the first port found and print to the standard output every send/recv packet that comes from the bot.
