@@ -35,7 +35,7 @@ The type is just a numerical value and it must be a valid type. In the C++ examp
 ```
 
 ## Messages sent from the BOT to the CLIENT
-The bot will only send you messages of type 0 and 1 which are send and recv packets. These 2 types of messages also have the field '"packet"' with the full packet.
+The bot will only send you messages of type 0 and 1 which are send and recv packets. These 2 types of messages also have the field `packet` with the full packet.
 
 Examples:
 * Send packet
@@ -45,7 +45,7 @@ Examples:
     "packet": "u_s 0 3 2432"
 }
 ```
-
+___
 * Recv packet
 ```json
 {
@@ -58,7 +58,7 @@ Examples:
 You can send multiple messages to the bot to send or receive a packet and also do some actions like attacking, walking, picking up an item, etc. All this actions are performed by calling game functions in the main game thread to guarantee thread safety.
 
 Examples:
-
+___
 * `Description`: Send a packet to the game server.
 * `packet`: The packet to send to the game server, in this case it uses an item from the .inventory
 ```json
