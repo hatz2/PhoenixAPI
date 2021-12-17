@@ -1,6 +1,5 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
-#include <memory>
 #include "Api.h"
 
 using json = nlohmann::json;
@@ -41,7 +40,8 @@ int main()
             catch (const std::exception& e)
             {
                 std::cerr << e.what() << std::endl;
-                system("pause");
+                std::cin.get();
+                return 1;
             }
         }
 
