@@ -67,7 +67,7 @@ Examples:
     "packet": "u_i 1 1234 2 15 0 0"
 }
 ```
-
+___
 * `Description`: Simulates a received packet from the game server.
 * `packet`: The packet to get received, in this case it simulates client side getting 1kkk of gold.
 ```json
@@ -76,7 +76,7 @@ Examples:
     "packet": "gold 1000000000 0"
 }
 ```
-
+___
 * `Description`: Attack a monster by using the top ready skill that you've set in the bot for the player, pet and partner.
 * `monster_id`: ID of the monster you want to attack.
 ```json
@@ -85,6 +85,7 @@ Examples:
     "monster_id": 2307
 }
 ```
+___
 * `Description`: Attack a monster with the given skill.
 * `monster_id`: ID of the monster you want to attack
 * `skill_id`: ID of the skill you want to use.
@@ -95,7 +96,7 @@ Examples:
     "skill_id": 0
 }
 ```
-
+___
 * `Description`: Character walks to coordiantes (x, y).
 ```json
 {
@@ -104,6 +105,7 @@ Examples:
     "y": 68,
 }
 ```
+___
 * `Description`: Attack a monster with the given pet skill.
 * `monster_id`: ID of the monster you want to attack
 * `skill_id`: ID of the pet skill you want to use.
@@ -114,7 +116,7 @@ Examples:
     "skill_id": 0
 }
 ```
-
+___
 * `Description`: Attack a monster with the given partner skill.
 * `monster_id`: ID of the monster you want to attack
 * `skill_id`: ID of the partner skill you want to use.
@@ -125,7 +127,7 @@ Examples:
     "skill_id": 1
 }
 ```
-
+___
 * `Description`: Pet and partner walks to coordinates (x, y).
 ```json
 {
@@ -134,7 +136,7 @@ Examples:
     "y": 46
 }
 ```
-
+___
 * `Description`: Walk and pick up the given item.
 * `item_id`: ID of the item you want to pick up.
 ```json
@@ -143,7 +145,7 @@ Examples:
     "item_id": 1234
 }
 ```
-
+____
 * `Description`: Walk and collect a npc (ice flowers and that kind of stuff).
 * `npc_id`: ID of the npc you want to collect.
 ```json
@@ -152,7 +154,7 @@ Examples:
     "npc_id": 4321
 }
 ```
-
+___
 ## About the C++ API
 To use this API you just need to add the following files into your project:
 
