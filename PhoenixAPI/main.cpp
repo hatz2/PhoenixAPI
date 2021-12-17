@@ -1,6 +1,6 @@
 /*********************************************************************
  * @file   main.cpp
- * @brief  Example of a packetlogger using the API
+ * @brief  Packetlogger example using the API
  * 
  * @author Hatz
  * @date   December 2021
