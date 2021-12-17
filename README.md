@@ -31,6 +31,8 @@ The type is just a numerical value and it must be a valid type. In the C++ examp
 		pets_walk,      // 7
 		pick_up,        // 8
 		collect         // 9
+        start_bot,      // 10
+        stop_bot        // 11
 	};
 ```
 
@@ -155,6 +157,19 @@ ____
 }
 ```
 ___
+* `Description`: Start the farming bot
+```json
+{
+    "type": 10
+}
+```
+___
+* `Description`: Stop the farming bot
+```json
+{
+    "type": 11
+}
+```
 ## About the C++ API
 To use this API you just need to add the following files into your project and `#include "Api.h"` where you want to use it:
 
