@@ -59,7 +59,7 @@ You can send multiple messages to the bot to send or receive a packet and also d
 
 Examples:
 
-* Description: Send a packet to the game server.
+* `Description`: Send a packet to the game server.
 * `packet`: The packet to send to the game server, in this case it uses an item from the .inventory
 ```json
 {
@@ -68,7 +68,7 @@ Examples:
 }
 ```
 
-* Description: Simulates a received packet from the game server.
+* `Description`: Simulates a received packet from the game server.
 * `packet`: The packet to get received, in this case it simulates client side getting 1kkk of gold.
 ```json
 {
@@ -77,7 +77,7 @@ Examples:
 }
 ```
 
-* Description: Attack a monster by using the top ready skill that you've set in the bot for the player, pet and partner.
+* `Description`: Attack a monster by using the top ready skill that you've set in the bot for the player, pet and partner.
 * `monster_id`: ID of the monster you want to attack.
 ```json
 {
@@ -85,7 +85,7 @@ Examples:
     "monster_id": 2307
 }
 ```
-* Description: Attack a monster with the given skill.
+* `Description`: Attack a monster with the given skill.
 * `monster_id`: ID of the monster you want to attack
 * `skill_id`: ID of the skill you want to use.
 ```json
@@ -96,7 +96,7 @@ Examples:
 }
 ```
 
-* Description: Character walks to coordiantes (x, y).
+* `Description`: Character walks to coordiantes (x, y).
 ```json
 {
     "type": 4,
@@ -104,7 +104,7 @@ Examples:
     "y": 68,
 }
 ```
-* Description: Attack a monster with the given pet skill.
+* `Description`: Attack a monster with the given pet skill.
 * `monster_id`: ID of the monster you want to attack
 * `skill_id`: ID of the pet skill you want to use.
 ```json
@@ -115,7 +115,7 @@ Examples:
 }
 ```
 
-* Description: Attack a monster with the given partner skill.
+* `Description`: Attack a monster with the given partner skill.
 * `monster_id`: ID of the monster you want to attack
 * `skill_id`: ID of the partner skill you want to use.
 ```json
@@ -126,7 +126,7 @@ Examples:
 }
 ```
 
-* Description: Pet and partner walks to coordinates (x, y).
+* `Description`: Pet and partner walks to coordinates (x, y).
 ```json
 {
     "type": 7,
@@ -135,7 +135,7 @@ Examples:
 }
 ```
 
-* Description: Walk and pick up the given item.
+* `Description`: Walk and pick up the given item.
 * `item_id`: ID of the item you want to pick up.
 ```json
 {
@@ -144,7 +144,7 @@ Examples:
 }
 ```
 
-* Description: Walk and collect a npc (ice flowers and that kind of stuff).
+* `Description`: Walk and collect a npc (ice flowers and that kind of stuff).
 * `npc_id`: ID of the npc you want to collect.
 ```json
 {
@@ -156,14 +156,13 @@ Examples:
 ## About the C++ API
 To use this API you just need to add the following files into your project:
 
-```
-Api.h
-Api.cpp
-Port_finder.h
-Port_finder.cpp
-Safe_queue.h
-Safe_queue.cpp
-```
+* `Api.h`
+* `Api.cpp`
+* `Port_finder.h`
+* `Port_finder.cpp`
+* `Safe_queue.h`
+* `Safe_queue.cpp`
+
 
 This example was made using Microsoft Visual Studio Community 2019 and C++14.
 
