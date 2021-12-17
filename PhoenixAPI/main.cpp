@@ -2,15 +2,15 @@
 #include <nlohmann/json.hpp>
 #include "Api.h"
 
-using json = nlohmann::json;
-
 int main()
 {
+    using json = nlohmann::json;
+
     std::vector<int> ports = Phoenix::find_ports();
 
     if (ports.size() <= 0)
     {
-        std::cerr << "find ports failed\n";
+        std::cerr << "Find ports failed\n";
         return -1;
     }
 
