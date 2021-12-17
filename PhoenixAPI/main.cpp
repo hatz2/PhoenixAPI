@@ -1,7 +1,7 @@
 /*********************************************************************
  * @file   main.cpp
  * @brief  Packetlogger example using the API
- * 
+ *
  * @author Hatz
  * @date   December 2021
  *********************************************************************/
@@ -23,7 +23,7 @@ int main()
     }
 
     Phoenix::Api api(ports.front());
-    
+
     while (true)
     {
         while (!api.empty())
