@@ -1,4 +1,11 @@
 #pragma once
+/*********************************************************************
+ * @file   Safe_queue.h
+ * @brief  Safe thread implementation of a std::queue<char*>
+ * 
+ * @author Hatz
+ * @date   December 2021
+ *********************************************************************/
 
 #include <mutex>
 #include <queue>
@@ -6,6 +13,9 @@
 
 namespace Phoenix
 {
+	/**
+	 * @brief Thread safe char* queue
+	 */
 	class Safe_queue
 	{
 	public:
