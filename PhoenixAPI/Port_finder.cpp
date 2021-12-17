@@ -18,7 +18,7 @@ BOOL CALLBACK enum_windows_callback(HWND hwnd, LPARAM param)
 
     std::string title_wrapper(title);
 
-    if (title_wrapper.find("Phoenix Bot") == std::string::npos)
+    if (title_wrapper.find("] - Phoenix Bot:") == std::string::npos)
     {
         return TRUE;
     }
