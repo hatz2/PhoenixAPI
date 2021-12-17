@@ -1,3 +1,11 @@
+/*********************************************************************
+ * @file   main.cpp
+ * @brief  Example of a packetlogger using the API
+ * 
+ * @author Hatz
+ * @date   December 2021
+ *********************************************************************/
+
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include "Api.h"

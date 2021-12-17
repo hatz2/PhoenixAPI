@@ -1,4 +1,3 @@
-#pragma once
 /*********************************************************************
  * @file   Port_finder.h
  * @brief  Additional API function to get the ports
@@ -6,6 +5,9 @@
  * @author Hatz
  * @date   December 2021
  *********************************************************************/
+
+#pragma once
+
 #include <vector>
 
 namespace Phoenix

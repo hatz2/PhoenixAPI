@@ -1,4 +1,3 @@
-#pragma once
 /*********************************************************************
  * @file   Safe_queue.h
  * @brief  Safe thread implementation of a std::queue<char*>
@@ -6,6 +5,8 @@
  * @author Hatz
  * @date   December 2021
  *********************************************************************/
+
+#pragma once
 
 #include <mutex>
 #include <queue>

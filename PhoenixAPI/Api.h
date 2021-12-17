@@ -1,4 +1,3 @@
-#pragma once
 /*********************************************************************
  * @file   Api.h
  * @brief  Main file of the Phoenix Bot API
@@ -6,6 +5,8 @@
  * @author Hatz
  * @date   December 2021
  *********************************************************************/
+
+#pragma once
 
 #include "Port_finder.h"
 #include "Safe_queue.h"
