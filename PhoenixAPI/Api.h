@@ -82,8 +82,8 @@ namespace Phoenix
 		void receive_messages();
 
 		/**
-		 * @brief Initialize a socket connected to the givene port
-		 * @param port
+		 * @brief Initialize a socket connected to the given port
+		 * @param port The port to connect
 		 */
 		void initialize_socket(int port);
 
