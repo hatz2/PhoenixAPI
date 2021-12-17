@@ -182,6 +182,6 @@ To use this API you just need to add the following files into your project and `
 
 This example was made using Microsoft Visual Studio Community 2019 and C++14.
 
-Since C++ doesn't support JSON natively you'll need to use a third party library to use it. In this example I've used [nlohmann json](https://github.com/nlohmann/json) and to handle the dependencies I've used [vcpkg](https://github.com/microsoft/vcpkg).
+Since C++ doesn't support JSON natively you'll need to use a third party library to use it. In this example I've used [nlohmann json](https://github.com/nlohmann/json). To handle the dependencies I've used [vcpkg](https://github.com/microsoft/vcpkg).
 
 In the file [main.cpp](PhoenixAPI/main.cpp) you have an example of a packetlogger that will connect to the first port found and print to the standard output every send/recv packet that comes from the bot.
