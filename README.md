@@ -61,7 +61,7 @@ You can send multiple messages to the bot to send or receive a packet and also d
 
 Examples:
 * `Description`: Send a packet to the game server.
-* `packet`: The packet to send to the game server, in this case it uses an item from the .inventory
+* `packet`: The packet to send to the game server, in this case it uses an item from the inventory
 ```json
 {
     "type": 0,
