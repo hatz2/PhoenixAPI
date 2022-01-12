@@ -20,6 +20,7 @@ BOOL CALLBACK enum_windows_callback(HWND hwnd, LPARAM param)
 
     if (title_wrapper.find("] - Phoenix Bot:") == std::string::npos)
     {
+        delete[] title;
         return TRUE;
     }
 
@@ -27,11 +28,13 @@ BOOL CALLBACK enum_windows_callback(HWND hwnd, LPARAM param)
 
     if (port.empty())
     {
+        delete[] title;
         return TRUE;
     }
 
     ports.push_back(std::stoi(port));
 
+    delete[] title;
     return TRUE;
 }
 
