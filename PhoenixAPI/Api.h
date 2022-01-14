@@ -35,7 +35,9 @@ namespace Phoenix
         pick_up,
         collect,
         start_bot,
-        stop_bot
+        stop_bot,
+        continue_bot,
+        load_settings
     };
 
     /**

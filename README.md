@@ -32,7 +32,9 @@ enum class Type
     pick_up,        // 8
     collect,        // 9
     start_bot,      // 10
-    stop_bot        // 11
+    stop_bot,       // 11
+    continue_bot,   // 12
+    load_settings,  // 13
 }
 ```
 
@@ -167,6 +169,22 @@ ___
 ```json
 {
     "type": 11
+}
+```
+___
+* `Description`: Continue the farming bot
+```json
+{
+    "type": 12
+}
+```
+___
+* `Description`: Load existing bot settings/profile
+* `path`: Full path of the .ini file
+```json
+{
+    "type": 13,
+    "path": "C:\Program Files (x86)\Nostale\mysettings.ini"
 }
 ```
 ## About the C++ API
