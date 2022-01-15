@@ -184,7 +184,7 @@ ___
 ```json
 {
     "type": 13,
-    "path": "C:\Program Files (x86)\Nostale\mysettings.ini"
+    "path": "C:/Program Files (x86)/Nostale/mysettings.ini"
 }
 ```
 ## About the C++ API
