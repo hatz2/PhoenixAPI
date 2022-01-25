@@ -240,6 +240,7 @@ ___
 ___
 
 * `Description`: Starts the minigame bot
+
   ```json
   {
     "type": 14
@@ -248,6 +249,7 @@ ___
 ___
 
 * `Description`: Stops the minigame bot
+
   ```json
   {
     "type": 15
