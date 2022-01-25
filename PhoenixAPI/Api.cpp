@@ -50,6 +50,150 @@ std::string Phoenix::Api::get_message()
     return msg;
 }
 
+bool Phoenix::Api::send_packet(const std::string& packet)
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::packet_send;
+    json_data["packet"] = packet;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::recv_packet(const std::string& packet)
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::packet_recv;
+    json_data["packet"] = packet;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::attack_monster(int monster_id)
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::attack;
+    json_data["monster_id"] = monster_id;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::use_player_skill(int monster_id, int skill_id)
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::player_skill;
+    json_data["monster_id"] = monster_id;
+    json_data["skill_id"] = skill_id;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::player_walk(int x, int y)
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::player_walk;
+    json_data["x"] = x;
+    json_data["y"] = y;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::use_pet_skill(int monster_id, int skill_id)
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::pet_skill;
+    json_data["monster_id"] = monster_id;
+    json_data["skill_id"] = skill_id;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::use_partner_skill(int monster_id, int skill_id)
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::partner_skill;
+    json_data["monster_id"] = monster_id;
+    json_data["skill_id"] = skill_id;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::pets_walk(int x, int y)
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::pets_walk;
+    json_data["x"] = x;
+    json_data["y"] = y;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::pick_up(int item_id)
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::pick_up;
+    json_data["item_id"] = item_id;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::collect(int npc_id)
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::collect;
+    json_data["npc_id"] = npc_id;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::start_bot()
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::start_bot;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::stop_bot()
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::stop_bot;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::continue_bot()
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::continue_bot;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::load_settings(const std::string& settings_path)
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::load_settings;
+    json_data["path"] = settings_path;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::start_minigame_bot()
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::start_minigame_bot;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::stop_minigame_bot()
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::stop_minigame_bot;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
 void Phoenix::Api::receive_messages()
 {
     constexpr int buffer_size = 4096;
