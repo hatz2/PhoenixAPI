@@ -151,9 +151,9 @@ void Bot::work()
     {
         while (player->get_map_id() == -1 || player->get_map_id() == sunny_meadows_id)
         {
-            api->send_packet("treq 35 142");
+            api->send_packet("wreq");
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-            api->send_packet("treq 35 142 1");
+            api->send_packet("wreq 1");
             std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 
         }
