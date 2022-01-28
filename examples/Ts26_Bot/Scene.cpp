@@ -1,31 +1,20 @@
 #include "Scene.h"
 
-void Scene::on_recv(const std::vector<std::string>& packet_splitted)
+void Scene::on_recv(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     std::string header = packet_splitted[0];
 
-    if (header == "in")
-        handle_in(packet_splitted);
-
-    else if (header == "out")
-        handle_out(packet_splitted);
-
-    else if (header == "su")
-        handle_su(packet_splitted);
+    if (header == "out")
+        handle_out(packet_splitted, full_packet);
 
     else if (header == "drop") 
-        handle_drop(packet_splitted);
+        handle_drop(packet_splitted, full_packet);
 
     else if (header == "get") 
-        handle_get(packet_splitted);
+        handle_get(packet_splitted, full_packet);
 
     else if (header == "c_map")
-        handle_cmap(packet_splitted);
-}
-
-size_t Scene::get_monster_count() const
-{
-    return monsters.size();
+        handle_cmap(packet_splitted, full_packet);
 }
 
 size_t Scene::get_items_count() const
@@ -33,78 +22,75 @@ size_t Scene::get_items_count() const
     return items.size();
 }
 
-size_t Scene::get_levers_count() const
-{
-    return levers.size();
-}
-
 const std::set<int> Scene::get_items() const
 {
     return items;
 }
 
-void Scene::handle_in(const std::vector<std::string>& packet_splitted)
-{
-    if (packet_splitted.size() < 10)
-        return;
-
-    int type = std::stoi(packet_splitted[1]);
-    int vnum = std::stoi(packet_splitted[2]);
-    int id = std::stoi(packet_splitted[3]);
-
-    if (type == 3)
-        monsters.emplace(id, vnum);
-
-    if (type == 9)
-        levers.emplace(id);
-}
-
-void Scene::handle_out(const std::vector<std::string>& packet_splitted)
+void Scene::handle_out(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     if (packet_splitted.size() < 3)
         return;
 
-    int id = std::stoi(packet_splitted[2]);
+    int id;
+
+    try
+    {
+        id = std::stoi(packet_splitted[2]);
+    }
+
+    catch (const std::exception& e)
+    {
+        std::cerr << "Scene::handle_out " << e.what() << std::endl;
+        std::cerr << "Packet: " << full_packet << std::endl;
+    }
 
     items.erase(id);
 }
 
-void Scene::handle_su(const std::vector<std::string>& packet_splitted)
-{
-    if (packet_splitted.size() < 13)
-        return;
-
-    int id = std::stoi(packet_splitted[4]);
-    int type = std::stoi(packet_splitted[3]);
-    int hp = std::stoi(packet_splitted[12]);
-
-    if (type == 3 && hp == 0)
-        monsters.erase(id);
-}
-
-void Scene::handle_drop(const std::vector<std::string>& packet_splitted)
+void Scene::handle_drop(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     if (packet_splitted.size() < 8)
         return;
 
-    int id = std::stoi(packet_splitted[2]);
+    int id;
+
+    try
+    {
+        id = std::stoi(packet_splitted[2]);
+    }
+
+    catch (const std::exception& e)
+    {
+        std::cerr << "Scene::handle_drop " << e.what() << std::endl;
+        std::cerr << "Packet: " << full_packet << std::endl;
+    }
 
     items.emplace(id);
 }
 
-void Scene::handle_get(const std::vector<std::string>& packet_splitted)
+void Scene::handle_get(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     if (packet_splitted.size() < 5)
         return;
 
-    int id = std::stoi(packet_splitted[3]);
+    int id;
+
+    try
+    {
+        id = std::stoi(packet_splitted[3]);
+    }
+
+    catch (const std::exception& e)
+    {
+        std::cerr << "Scene::handle_get " << e.what() << std::endl;
+        std::cerr << "Packet: " << full_packet << std::endl;
+    }
 
     items.erase(id);
 }
 
-void Scene::handle_cmap(const std::vector<std::string>& packet_splitted)
+void Scene::handle_cmap(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
-    monsters.clear();
     items.clear();
-    levers.clear();
 }

@@ -15,16 +15,17 @@ public:
     explicit Bot(Phoenix::Api* api, Player* player, Scene* scene);
     ~Bot();
 
-    void on_send(const std::vector<std::string>& packet_splitted) override;
-    void on_recv(const std::vector<std::string>& packet_splitted) override;
+    void on_send(const std::vector<std::string>& packet_splitted, const std::string& full_packet) override;
+    void on_recv(const std::vector<std::string>& packet_splitted, const std::string& full_packet) override;
 
 private:
-    void handle_in(const std::vector<std::string>& packet_splitted);
-    void handle_at(const std::vector<std::string>& packet_splitted);
-    void handle_su(const std::vector<std::string>& packet_splitted);
-    void handle_dlgi(const std::vector<std::string>& packet_splitted);
-    void handle_git(const std::vector<std::string>& packet_splitted);
-    void handle_npc_req(const std::vector<std::string>& packet_splitted);
+    void handle_in(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
+    void handle_at(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
+    void handle_su(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
+    void handle_dlgi(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
+    void handle_git(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
+    void handle_npc_req(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
+    void handle_sayi(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
     void work();
 
     void complete_room();

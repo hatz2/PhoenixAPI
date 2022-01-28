@@ -23,44 +23,63 @@ Bot::~Bot()
         worker.join();
 }
 
-void Bot::on_send(const std::vector<std::string>& packet_splitted)
+void Bot::on_send(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     std::string header = packet_splitted[0];
 
     std::string test = header.substr(0, 4);
 
     if (test == "#git")
-        handle_git(packet_splitted);
+        handle_git(packet_splitted, full_packet);
 }
 
-void Bot::on_recv(const std::vector<std::string>& packet_splitted)
+void Bot::on_recv(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     std::string header = packet_splitted[0];
 
     if (header == "in")
-        handle_in(packet_splitted);
+        handle_in(packet_splitted, full_packet);
 
     else if (header == "at")
-        handle_at(packet_splitted);
+        handle_at(packet_splitted, full_packet);
 
     else if (header == "su")
-        handle_su(packet_splitted);
+        handle_su(packet_splitted, full_packet);
 
     else if (header == "dlgi")
-        handle_dlgi(packet_splitted);
+        handle_dlgi(packet_splitted, full_packet);
 
     else if (header == "npc_req")
-        handle_npc_req(packet_splitted);
+        handle_npc_req(packet_splitted, full_packet);
+
+    else if (header == "sayi")
+        handle_sayi(packet_splitted, full_packet);
 }
 
-void Bot::handle_in(const std::vector<std::string>& packet_splitted)
+void Bot::handle_in(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     if (packet_splitted.size() < 10)
         return;
 
-    int type = std::stoi(packet_splitted[1]);
-    int vnum = std::stoi(packet_splitted[2]);
-    int id = std::stoi(packet_splitted[3]);
+    if (packet_splitted[1] == "1")
+        return;
+
+    int type;
+    int vnum;
+    int id;
+
+    try
+    {
+        type = std::stoi(packet_splitted[1]);
+        vnum = std::stoi(packet_splitted[2]);
+        id = std::stoi(packet_splitted[3]);
+    }
+
+    catch (const std::exception& e)
+    {
+        std::cerr << "Bot::handle_in " << e.what() << std::endl;
+        std::cerr << "Packet: " << full_packet << std::endl;
+    }
 
     if (type == 3 && vnum == garg_vnum)
     {
@@ -77,7 +96,7 @@ void Bot::handle_in(const std::vector<std::string>& packet_splitted)
     }
 }
 
-void Bot::handle_at(const std::vector<std::string>& packet_splitted)
+void Bot::handle_at(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     target_id = -1;
     lever_id = -1;
@@ -85,20 +104,33 @@ void Bot::handle_at(const std::vector<std::string>& packet_splitted)
     map_change.release();
 }
 
-void Bot::handle_su(const std::vector<std::string>& packet_splitted)
+void Bot::handle_su(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     if (packet_splitted.size() < 13)
         return;
 
-    int id = std::stoi(packet_splitted[4]);
-    int type = std::stoi(packet_splitted[3]);
-    int hp = std::stoi(packet_splitted[12]);
+    int id;
+    int type;
+    int hp;
+
+    try
+    {
+        id = std::stoi(packet_splitted[4]);
+        type = std::stoi(packet_splitted[3]);
+        hp = std::stoi(packet_splitted[12]);
+    }
+
+    catch (const std::exception& e)
+    {
+        std::cerr << "Bot::handle_su " << e.what() << std::endl;
+        std::cerr << "Packet: " << full_packet << std::endl;
+    }
 
     if (type == 3 && hp == 0 && id == target_id)
         target_id = -1;
 }
 
-void Bot::handle_dlgi(const std::vector<std::string>& packet_splitted)
+void Bot::handle_dlgi(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     if (packet_splitted.size() < 6)
         return;
@@ -111,14 +143,25 @@ void Bot::handle_dlgi(const std::vector<std::string>& packet_splitted)
         api->send_packet(accept);
 }
 
-void Bot::handle_git(const std::vector<std::string>& packet_splitted)
+void Bot::handle_git(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     if (packet_splitted.size() > 1)
         return;
 
     auto pos = packet_splitted[0].find('^');
 
-    int id = std::stoi(packet_splitted[0].substr(pos + 1));
+    int id;
+
+    try
+    {
+        id = std::stoi(packet_splitted[0].substr(pos + 1));
+    }
+
+    catch (const std::exception& e)
+    {
+        std::cerr << "Bot::handle_git " << e.what() << std::endl;
+        std::cerr << "Packet: " << full_packet << std::endl;
+    }
 
     if (id == lever_id)
     {
@@ -127,13 +170,25 @@ void Bot::handle_git(const std::vector<std::string>& packet_splitted)
     }
 }
 
-void Bot::handle_npc_req(const std::vector<std::string>& packet_splitted)
+void Bot::handle_npc_req(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     if (packet_splitted.size() < 4)
         return;
 
-    int player_id = std::stoi(packet_splitted[2]);
-    int id = std::stoi(packet_splitted[3]);
+    int player_id;
+    int id;
+
+    try
+    {
+        player_id = std::stoi(packet_splitted[2]);
+        id = std::stoi(packet_splitted[3]);
+    }
+
+    catch (const std::exception& e)
+    {
+        std::cerr << "Bot::handle_npc_req " << e.what() << std::endl;
+        std::cerr << "Packet: " << full_packet << std::endl;
+    }
 
     if (player_id != player->get_id())
         return;
@@ -145,6 +200,30 @@ void Bot::handle_npc_req(const std::vector<std::string>& packet_splitted)
         api->send_packet("n_run 6 0 1 " + std::to_string(player_id));
 }
 
+void Bot::handle_sayi(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
+{
+    if (packet_splitted.size() < 10)
+        return;
+
+    int entity_id;
+
+    try
+    {
+        entity_id = std::stoi(packet_splitted[2]);
+    }
+
+    catch (const std::exception& e)
+    {
+        std::cerr << "Bot::handle_sayi " << e.what() << std::endl;
+        std::cerr << "Packet: " << full_packet << std::endl;
+    }
+
+    if (entity_id != player->get_id() || packet_splitted[3] != "10" || packet_splitted[4] != "94")
+        return;
+
+    api->send_packet("preq");
+}
+
 void Bot::work()
 {
     while (run)
@@ -154,8 +233,7 @@ void Bot::work()
             api->send_packet("wreq");
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             api->send_packet("wreq 1");
-            std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-
+            std::this_thread::sleep_for(std::chrono::milliseconds(5000));
         }
 
         if (player->get_map_id() == first_ts_room_id)

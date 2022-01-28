@@ -8,23 +8,23 @@ Player::Player()
 {
 }
 
-void Player::on_send(const std::vector<std::string>& packet_splitted)
+void Player::on_send(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     std::string header = packet_splitted[0];
 
     if (header == "walk")
-        handle_walk(packet_splitted);
+        handle_walk(packet_splitted, full_packet);
 }
 
-void Player::on_recv(const std::vector<std::string>& packet_splitted)
+void Player::on_recv(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     std::string header = packet_splitted[0];
 
     if (header == "at")
-        handle_at(packet_splitted);
+        handle_at(packet_splitted, full_packet);
 
     else if (header == "c_info")
-        handle_cinfo(packet_splitted);
+        handle_cinfo(packet_splitted, full_packet);
 }
 
 int Player::get_x()
@@ -51,36 +51,63 @@ int Player::get_map_id()
     return map_id;
 }
 
-void Player::handle_at(const std::vector<std::string>& packet_splitted)
+void Player::handle_at(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     if (packet_splitted.size() < 9)
         return;
 
     std::lock_guard<std::mutex> lock(mtx);
 
-    id = std::stoi(packet_splitted[1]);
-    map_id = std::stoi(packet_splitted[2]);
-    x = std::stoi(packet_splitted[3]);
-    y = std::stoi(packet_splitted[4]);
+    try
+    {
+        id = std::stoi(packet_splitted[1]);
+        map_id = std::stoi(packet_splitted[2]);
+        x = std::stoi(packet_splitted[3]);
+        y = std::stoi(packet_splitted[4]);
+    }
+
+    catch (const std::exception& e)
+    {
+        std::cerr << "Player::handle_at " << e.what() << std::endl;
+        std::cerr << "Packet: " << full_packet << std::endl;
+    }
 }
 
-void Player::handle_walk(const std::vector<std::string>& packet_splitted)
+void Player::handle_walk(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     if (packet_splitted.size() < 5)
         return;
 
     std::lock_guard<std::mutex> lock(mtx);
 
-    x = std::stoi(packet_splitted[1]);
-    y = std::stoi(packet_splitted[2]);
+    try
+    {
+        x = std::stoi(packet_splitted[1]);
+        y = std::stoi(packet_splitted[2]);
+    }
+
+    catch (const std::exception& e)
+    {
+        std::cerr << "Player::handle_walk " << e.what() << std::endl;
+        std::cerr << "Packet: " << full_packet << std::endl;
+    }
 }
 
-void Player::handle_cinfo(const std::vector<std::string>& packet_splitted)
+void Player::handle_cinfo(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
 {
     if (packet_splitted.size() < 20)
         return;
 
     std::lock_guard<std::mutex> lock(mtx);
 
-    id = std::stoi(packet_splitted[6]);
+    try
+    {
+        id = std::stoi(packet_splitted[6]);
+    }
+
+    catch (const std::exception& e)
+    {
+        std::cerr << "Player::handle_cinfo " << e.what() << std::endl;
+        std::cerr << "Packet: " << full_packet << std::endl;
+    }
 }
