@@ -35,26 +35,28 @@ int main()
 
                 if (json_msg["type"] == Phoenix::Type::packet_send)
                 {
-                    std::vector<std::string> packet_splitted = split_string(json_msg["packet"]);
+                    std::string packet = json_msg["packet"];
+                    std::vector<std::string> packet_splitted = split_string(packet);
 
                     if (packet_splitted.size() > 0)
                     {
                         for (auto mod : modules)
                         {
-                            mod->on_send(packet_splitted);
+                            mod->on_send(packet_splitted, packet);
                         }
                     }
                 }
 
                 if (json_msg["type"] == Phoenix::Type::packet_recv)
                 {
-                    std::vector<std::string> packet_splitted = split_string(json_msg["packet"]);
+                    std::string packet = json_msg["packet"];
+                    std::vector<std::string> packet_splitted = split_string(packet);
 
                     if (packet_splitted.size() > 0)
                     {
                         for (auto mod : modules)
                         {
-                            mod->on_recv(packet_splitted);
+                            mod->on_recv(packet_splitted, packet);
                         }
                     }
                 }
