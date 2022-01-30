@@ -14,23 +14,11 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="PhoenixApi">
-      <UniqueIdentifier>{4a67f901-ea80-4491-86de-026ca20e68b8}</UniqueIdentifier>
+      <UniqueIdentifier>{6e1ea5b8-0187-48e2-b069-ba523e970d65}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Bot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Split_string.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PhoenixApi\Api.cpp">
@@ -42,23 +30,17 @@
     <ClCompile Include="PhoenixApi\Safe_queue.cpp">
       <Filter>PhoenixApi</Filter>
     </ClCompile>
+    <ClCompile Include="Split_string.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bot.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Module.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Split_string.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PhoenixApi\Api.h">
       <Filter>PhoenixApi</Filter>
     </ClInclude>
@@ -67,6 +49,18 @@
     </ClInclude>
     <ClInclude Include="PhoenixApi\Safe_queue.h">
       <Filter>PhoenixApi</Filter>
+    </ClInclude>
+    <ClInclude Include="Module.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Split_string.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
