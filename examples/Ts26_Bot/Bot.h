@@ -8,6 +8,7 @@
 #include <thread>
 #include <atomic>
 #include <utility>
+#include <ctime>
 
 class Bot : public Module
 {
@@ -26,11 +27,13 @@ private:
     void handle_git(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
     void handle_npc_req(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
     void handle_sayi(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
+    void handle_score(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
     void work();
 
     void complete_room();
     void pick_up_items();
     void attack_garg();
+    void wait_map_change();
     void walk(int x, int y);
 
     static constexpr int garg_vnum = 271;
@@ -53,6 +56,8 @@ private:
     Scene* scene;
     std::atomic<int> target_id;
     std::atomic<int> lever_id;
+    std::atomic<bool> failed;
+    std::atomic<bool> map_changed;
     bool run;
 };
 
