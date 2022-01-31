@@ -2,9 +2,10 @@
 #include "Module.h"
 #include "Scene.h"
 #include "PhoenixApi/Api.h"
+#include "INIReader.h"
 #include <utility>
-#include <atomic>
 #include <thread>
+#include <ctime>
 
 class Bot : public Module
 {
@@ -12,7 +13,7 @@ public:
     explicit Bot(Phoenix::Api* api, Scene* scene);
 
     void on_recv(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
-    void move();
+    void run();
 
 private:
     void handle_qnamli(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
@@ -30,6 +31,5 @@ private:
     bool afk_last_round;
     bool move_to_players;
     bool move_to_point;
-    std::atomic<bool> moving;
-
+    bool moving;
 };

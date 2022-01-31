@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <ctime>
 #include "PhoenixApi/Api.h"
 #include "Bot.h"
 #include "Scene.h"
@@ -19,7 +18,6 @@ int main()
     Scene scene;
     Bot bot(&api, &scene);
     std::vector<Module*> modules = { &scene, &bot };
-    clock_t time_begin = clock();
 
     std::cout << "Bot is running..." << std::endl;
 
@@ -68,15 +66,8 @@ int main()
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
 
-        float diff_time = float(clock() - time_begin) / CLOCKS_PER_SEC;
-
-        if (diff_time >= 1.0f)
-        {
-            bot.move();
-            time_begin = clock();
-        }
+        bot.run();
     }
-
 }
 
 int select_port()

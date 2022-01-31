@@ -65,9 +65,16 @@ void Bot::handle_msgi(const std::vector<std::string>& packet_splitted, const std
     // Monsters will appear in 40 seconds
     if (full_packet == "msgi 0 1287 4 40 0 0 0")
     {
+        std::cout << "Round " << round << " finished" << std::endl;
+
         moving = true;
         api->stop_bot();
         ++round;
+    }
+
+    if (full_packet == "msgi 0 383 0 0 0 0 0")
+    {
+        std::cout << "You've won the instant combat" << std::endl;
     }
 }
 
@@ -105,18 +112,27 @@ void Bot::handle_cmap(const std::vector<std::string>& packet_splitted, const std
     }
 }
 
-void Bot::move()
+void Bot::run()
 {
+    static clock_t time_begin = clock();
+
     if (moving)
     {
-        if (move_to_players)
+        float time_diff = float(clock() - time_begin) / CLOCKS_PER_SEC;
+
+        if (time_diff > 1.0f)
         {
-            std::pair<int, int> position = scene->get_central_player_position();
-            walk(position.first, position.second);
-        }
-        else if (move_to_point)
-        {
-            walk(point.first, point.second);
+            time_begin = clock();
+
+            if (move_to_players)
+            {
+                std::pair<int, int> position = scene->get_central_player_position();
+                walk(position.first, position.second);
+            }
+            else if (move_to_point)
+            {
+                walk(point.first, point.second);
+            }
         }
     }
 }
@@ -132,4 +148,17 @@ void Bot::walk(int x, int y)
 
 void Bot::load_config()
 {
+    INIReader reader("./ic_settings.ini");
+
+    if (reader.ParseError() < 0)
+    {
+        std::cerr << "Can't load ic_settings.ini" << std::endl;
+        return;
+    }
+
+    const std::string section = "Settings";
+    afk_last_round = reader.GetBoolean(section, "afk_last_round", true);
+    move_to_players = reader.GetBoolean(section, "move_to_players", true);
+    move_to_point = reader.GetBoolean(section, "move_to_point", false);
+    point = { reader.GetInteger(section, "x", 0), reader.GetInteger(section, "y", 0) };
 }
