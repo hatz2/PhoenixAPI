@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "PhoenixApi/Api.h"
 #include "INIReader.h"
+#include "Logger.h"
 #include <utility>
 #include <thread>
 #include <ctime>

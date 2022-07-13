@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bot.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhoenixApi\Api.cpp" />
     <ClCompile Include="PhoenixApi\Port_finder.cpp" />
@@ -149,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bot.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="PhoenixApi\Api.h" />
     <ClInclude Include="PhoenixApi\Port_finder.h" />

@@ -34,7 +34,7 @@ void Bot::handle_qnamli(const std::vector<std::string>& packet_splitted, const s
 
     if (packet_splitted[2] == "#guri^506" && packet_splitted[3] == "379")
     {
-        std::cout << "Joining instant combat" << std::endl;
+        Logger::print("Joining instant combat\n");
 
         api->send_packet("guri 508");
         api->send_packet(packet_splitted[2]);
@@ -65,7 +65,9 @@ void Bot::handle_msgi(const std::vector<std::string>& packet_splitted, const std
     // Monsters will appear in 40 seconds
     if (full_packet == "msgi 0 1287 4 40 0 0 0")
     {
-        std::cout << "Round " << round << " finished" << std::endl;
+        std::stringstream ss;
+        ss << "Round " << round << " finished" << std::endl;
+        Logger::print(ss.str());
 
         moving = true;
         api->stop_bot();
@@ -74,7 +76,7 @@ void Bot::handle_msgi(const std::vector<std::string>& packet_splitted, const std
 
     if (full_packet == "msgi 0 383 0 0 0 0 0")
     {
-        std::cout << "You've won the instant combat" << std::endl;
+        Logger::print("You've won the instant combat\n");
     }
 }
 
@@ -107,8 +109,11 @@ void Bot::handle_cmap(const std::vector<std::string>& packet_splitted, const std
     }
     catch (const std::exception& e)
     {
-        std::cerr << "Bot::handle_cmap " << e.what() << std::endl;
-        std::cerr << "Packet: " << full_packet << std::endl;
+        std::stringstream ss;
+        ss << "Bot::handle_cmap " << e.what() << std::endl;
+        ss << "Packet: " << full_packet << std::endl;
+
+        Logger::error(ss.str());
     }
 }
 
@@ -152,7 +157,7 @@ void Bot::load_config()
 
     if (reader.ParseError() < 0)
     {
-        std::cerr << "Can't load ic_settings.ini" << std::endl;
+        Logger::error("Can't load ic_settings.ini\n");
         return;
     }
 
