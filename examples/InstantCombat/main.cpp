@@ -1,25 +1,24 @@
 #include <iostream>
 #include <vector>
+#include <mutex>
 #include "PhoenixApi/Api.h"
 #include "Bot.h"
 #include "Scene.h"
 #include "Split_string.h"
+#include "Logger.h"
 
 int select_port();
 
-int main()
+void run_bot(int port)
 {
-    int port = select_port();
-
-    if (port == -1)
-        return 0;
-
     Phoenix::Api api(port);
     Scene scene;
     Bot bot(&api, &scene);
     std::vector<Module*> modules = { &scene, &bot };
 
-    std::cout << "Bot is running..." << std::endl;
+    std::stringstream ss;
+    ss << "[" << port << "] Bot is running..." << std::endl;
+    Logger::print(ss.str());
 
     while (true)
     {
@@ -57,8 +56,10 @@ int main()
             }
             catch (const std::exception& e)
             {
-                std::cerr << e.what() << std::endl;
-                return 1;
+                ss.clear();
+                ss << "[" << port << "]: " << e.what() << std::endl;
+                Logger::error(ss.str());
+                return;
             }
         }
         else
@@ -70,6 +71,32 @@ int main()
     }
 }
 
+int main()
+{
+    int selected_port = select_port();
+
+    if (selected_port == -1)
+        return 0;
+
+    if (selected_port == 0)
+    {
+        std::vector<int> ports = Phoenix::find_ports();
+        std::vector<std::thread> bots;
+
+        for (int port : ports)
+            bots.push_back(std::thread(run_bot, port));
+
+        for (auto& bot : bots)
+            if (bot.joinable()) bot.join();
+    }
+    else
+    {
+        run_bot(selected_port);
+    }
+
+    return 0;
+}
+
 int select_port()
 {
     int option = -1;
@@ -79,9 +106,11 @@ int select_port()
 
     std::cout << "Select the port to connect (-1 to exit):" << std::endl;
 
+    std::cout << "0) Select all" << std::endl;
+
     for (size_t i = 0; i < ports.size(); ++i)
     {
-        std::cout << i << ") " << ports[i] << std::endl;
+        std::cout << i + 1 << ") " << ports[i] << std::endl;
     }
 
     while (true)
@@ -94,14 +123,21 @@ int select_port()
             break;
         }
 
-        else if (option < 0 || option >= (int)ports.size())
+        if (option == 0)
+        {
+            std::cout << "All ports selected" << std::endl;
+            return 0;
+        }
+
+        else if (option < 0 || option > (int)ports.size())
         {
             std::cout << "Selected option is not valid, try again." << std::endl;
-            std::cout << "Options are: ";
+            std::cout << "Available options are: ";
 
+            std::cout << "0 ";
             for (size_t i = 0; i < ports.size(); ++i)
             {
-                std::cout << i << " ";
+                std::cout << i + 1 << " ";
             }
 
             std::cout << std::endl;
