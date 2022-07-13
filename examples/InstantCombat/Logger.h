@@ -5,6 +5,6 @@
 
 namespace Logger
 {
-	void print(const std::string& text);
-	void error(const std::string& text);
+    void print(const std::string& text);
+    void error(const std::string& text);
 }
