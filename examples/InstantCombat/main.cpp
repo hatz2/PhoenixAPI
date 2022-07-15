@@ -145,7 +145,7 @@ int select_port()
 
         else
         {
-            port = ports[option];
+            port = ports[option - 1];
             break;
         }
     }
