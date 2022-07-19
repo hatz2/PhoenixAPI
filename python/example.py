@@ -8,6 +8,7 @@ if __name__ == "__main__":
     port = 123123 
     api = phoenix.Api(port)
 
+    # Logs all the packets that are sent/received from the client
     while api.working():
         if not api.empty():
             msg = api.get_message()
@@ -18,4 +19,4 @@ if __name__ == "__main__":
             elif json_msg["type"] == phoenix.Type.packet_recv.value:
                 print("[RECV]: " + json_msg["packet"])
         else:
-            sleep(0.01)    
+            sleep(0.01) 
