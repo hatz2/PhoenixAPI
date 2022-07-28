@@ -21,6 +21,9 @@ class Type(enum.Enum):
     load_settings = 13
     start_minigame_bot = 14
     stop_minigame_bot = 15
+    query_player_info = 16
+    query_inventory = 17
+    query_skills_info = 18
 
 class Api:
     HOST = "127.0.0.1"
@@ -231,6 +234,33 @@ class Api:
     def stop_minigame_bot(self) -> bool:
         data = {
             "type" : Type.stop_minigame_bot.value
+        }
+
+        json_data = json.dumps(data)
+
+        return self._send_data(json_data) == len(json_data) + 1
+
+    def query_player_information(self) -> bool:
+        data = {
+            "type" : Type.query_player_info.value
+        }
+
+        json_data = json.dumps(data)
+
+        return self._send_data(json_data) == len(json_data) + 1
+
+    def query_inventory(self) -> bool:
+        data = {
+            "type" : Type.query_inventory.value
+        }
+
+        json_data = json.dumps(data)
+
+        return self._send_data(json_data) == len(json_data) +  1
+
+    def query_skills_info(self) -> bool:
+        data = {
+            "type" : Type.query_skills_info.value
         }
 
         json_data = json.dumps(data)

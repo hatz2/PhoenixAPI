@@ -194,6 +194,30 @@ bool Phoenix::Api::stop_minigame_bot()
     return (send_data(json_data.dump()) != SOCKET_ERROR);
 }
 
+bool Phoenix::Api::query_player_info()
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::query_player_info;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::query_inventory()
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::query_inventory;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::query_skills_info()
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::query_skills_info;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
 void Phoenix::Api::receive_messages()
 {
     constexpr int buffer_size = 4096;
