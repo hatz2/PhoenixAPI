@@ -37,13 +37,17 @@ enum class Type
     continue_bot,       // 12
     load_settings,      // 13
     start_minigame_bot, // 14
-    stop_minigame_bot   // 15
+    stop_minigame_bot,  // 15
+    query_player_info,  // 16
+    query_inventory,    // 17
+    query_skills_info   // 18
+
 }
 ```
 
 ## Messages sent from the BOT to the CLIENT
 
-The bot will only send you messages of type 0 and 1 which are send and recv packets. These 2 types of messages also have the field `packet` with the full packet.
+The bot will constantly send you messages of type 0 and 1 which are send and recv packets. These 2 types of messages also have the field `packet` with the full packet.
 
 Examples:
 
@@ -64,6 +68,109 @@ ___
   {
     "type": 1,
     "packet": "mv 3 2389 70 11 5"
+  }
+  ```
+
+You can also query the player infomation, the inventory and the skills information using the messages with type 16, 17 and 18.
+
+Examples:
+
+* Player information
+ 
+  ```json
+  {
+    "type": 16,
+    "player_info": {
+        "name": "Hatz",
+        "id": 123123,
+        "x": 5,
+        "y": 8,
+        "level": 99,
+        "champion_level": 80,
+        "hp_percent": 100,
+        "mp_percent": 100,
+        "map_id": 1,
+        "is_resting": false
+    }
+  }
+  ```
+
+* Inventory
+ 
+  ```json
+  {
+    "type": 17,
+    "inventory": {
+        "equip": [
+            {
+                "cuantity": 1,
+                "name": "Beast King's Crossbow",
+                "position": 0,
+                "vnum": 4465
+            },
+            {
+                "cuantity": 1,
+                "name": "Great Leader's Crossbow",
+                "position": 1,
+                "vnum": 4007
+            }
+        ],
+        "main": [
+            {
+                "cuantity": 70,
+                "name": "Gillion Stone",
+                "position": 0,
+                "vnum": 1013
+            },
+            {
+                "cuantity": 311,
+                "name": "Seed of Power",
+                "position": 1,
+                "vnum": 1012
+            }
+        ],
+        "etc": [
+            {
+                "cuantity": 999,
+                "name": "Pearl of Darkness",
+                "position": 0,
+                "vnum": 2094
+            },
+            {
+                "cuantity": 112,
+                "name": "Small Bean",
+                "position": 5,
+                "vnum": 2016
+            }
+        ]
+    }
+  }
+  ```
+
+* Skills information
+  
+  ```json
+  {
+    "type": 18,
+    "skills": [
+        {
+            "name": "Shuriken Attack",
+            "vnum": 880,
+            "id": 0,
+            "range": 3,
+            "area": 0,
+            "mana_cost": 0,
+            "is_ready": true
+        },
+        {
+            "name": "Summon Kamapakun",
+            "vnum": 886,
+            "id": 6,
+            "area": 3,
+            "mana_cost": 0,
+            "is_ready": true
+        }
+    ]
   }
   ```
 
@@ -239,6 +346,7 @@ ___
     "path": "C:/Program Files (x86)/Nostale/mysettings.ini"
   }
   ```
+
 ___
 
 * `Description`: Starts the minigame bot
@@ -248,6 +356,7 @@ ___
     "type": 14
   }
   ```
+
 ___
 
 * `Description`: Stops the minigame bot
@@ -257,6 +366,37 @@ ___
     "type": 15
   }
   ```
+
+___
+
+* `Description`: Query information from the player
+  
+  ```json
+  {
+    "type": 16
+  }
+  ```
+
+___
+
+* `Description`: Query the inventory information from the player
+  
+  ```json
+  {
+    "type": 17
+  }
+  ```
+
+___
+
+* `Description`: Query the skill information from the player
+  
+  ```json
+  {
+    "type": 18
+  }
+  ```
+
 ___
   
 ## About the C++ API
@@ -274,8 +414,6 @@ To use this API you just need to add the following files into your project and `
 * `Safe_queue.h`
 
 * `Safe_queue.cpp`
-
-
 
 This example was made using Microsoft Visual Studio Community 2019 and C++14.
 
