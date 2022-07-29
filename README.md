@@ -40,8 +40,8 @@ enum class Type
     stop_minigame_bot,  // 15
     query_player_info,  // 16
     query_inventory,    // 17
-    query_skills_info   // 18
-
+    query_skills_info,  // 18
+    query_map_entities  // 19
 }
 ```
 
@@ -71,7 +71,7 @@ ___
   }
   ```
 
-You can also query the player infomation, the inventory and the skills information using the messages with type 16, 17 and 18.
+You can also query the player infomation, inventory, skills and all map entities information using the messages with type 16, 17, 18 and 19.
 
 Examples:
 
@@ -169,6 +169,59 @@ Examples:
             "area": 3,
             "mana_cost": 0,
             "is_ready": true
+        }
+    ]
+  }
+  ```
+
+* Map entities
+  ```json
+  {
+    "type": 19,
+    "players": [
+        {
+            "name": "Hatz",
+            "id": 123123,
+            "x": 10,
+            "y": 20,
+            "family": "PhoenixEnjoyers",
+            "hp_percent": 100,
+            "mp_percent": 100,
+            "level": 99,
+            "champion_level": 80
+        }
+    ],
+    "npcs": [
+        {
+            "name": "Malcolm Mix",
+            "id": 123,
+            "x": 5,
+            "y": 50,
+            "vnum": 321,
+            "hp_percent": 100,
+            "mp_percent": 100
+        }
+    ],
+    "monsters": [
+        {
+            "name": "Dander",
+            "id": 2400,
+            "x": 43,
+            "y": 65,
+            "vnum": 1,
+            "hp_percent": 100,
+            "mp_percent": 100
+        }
+    ],
+    "items": [
+        {
+            "name": "Gillion Stone",
+            "vnum": 123,
+            "x": 69,
+            "y": 69,
+            "cuantity": 999,
+            "owner_id": 56789,
+            "id": 45645
         }
     ]
   }
@@ -369,7 +422,7 @@ ___
 
 ___
 
-* `Description`: Query information from the player
+* `Description`: Query information from the player, see response example above
   
   ```json
   {
@@ -379,7 +432,7 @@ ___
 
 ___
 
-* `Description`: Query the inventory information from the player
+* `Description`: Query the inventory information from the player, see response example above
   
   ```json
   {
@@ -389,11 +442,21 @@ ___
 
 ___
 
-* `Description`: Query the skill information from the player
+* `Description`: Query the skill information from the player, see response example above
   
   ```json
   {
     "type": 18
+  }
+  ```
+
+___
+
+* `Description`: Query information about all the map entities, see response example above
+  
+  ```json
+  {
+    "type": 19
   }
   ```
 
