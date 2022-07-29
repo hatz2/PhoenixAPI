@@ -218,6 +218,14 @@ bool Phoenix::Api::query_skills_info()
     return (send_data(json_data.dump()) != SOCKET_ERROR);
 }
 
+bool Phoenix::Api::query_map_entities()
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::query_map_entities;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
 void Phoenix::Api::receive_messages()
 {
     constexpr int buffer_size = 4096;

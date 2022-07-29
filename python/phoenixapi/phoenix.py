@@ -24,6 +24,7 @@ class Type(enum.Enum):
     query_player_info = 16
     query_inventory = 17
     query_skills_info = 18
+    query_map_entities = 19
 
 class Api:
     HOST = "127.0.0.1"
@@ -261,6 +262,15 @@ class Api:
     def query_skills_info(self) -> bool:
         data = {
             "type" : Type.query_skills_info.value
+        }
+
+        json_data = json.dumps(data)
+
+        return self._send_data(json_data) == len(json_data) + 1
+
+    def query_map_entities(self) -> bool:
+        data = {
+            "type" : Type.query_map_entities.value
         }
 
         json_data = json.dumps(data)

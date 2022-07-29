@@ -43,7 +43,8 @@ namespace Phoenix
         stop_minigame_bot,
         query_player_info,
         query_inventory,
-        query_skills_info
+        query_skills_info,
+        query_map_entities
     };
 
     /**
@@ -207,6 +208,12 @@ namespace Phoenix
          * @return false if there's any error, true otherwise
          */
         bool query_skills_info();
+
+        /**
+         * @brief Query all the map entities from the bot
+         * @return false if there's any error, true otherwise
+         */
+        bool query_map_entities();
 
     private:
         /**
