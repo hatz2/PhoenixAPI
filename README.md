@@ -103,13 +103,13 @@ Examples:
     "inventory": {
         "equip": [
             {
-                "cuantity": 1,
+                "quantity": 1,
                 "name": "Beast King's Crossbow",
                 "position": 0,
                 "vnum": 4465
             },
             {
-                "cuantity": 1,
+                "quantity": 1,
                 "name": "Great Leader's Crossbow",
                 "position": 1,
                 "vnum": 4007
@@ -117,13 +117,13 @@ Examples:
         ],
         "main": [
             {
-                "cuantity": 70,
+                "quantity": 70,
                 "name": "Gillion Stone",
                 "position": 0,
                 "vnum": 1013
             },
             {
-                "cuantity": 311,
+                "quantity": 311,
                 "name": "Seed of Power",
                 "position": 1,
                 "vnum": 1012
@@ -131,13 +131,13 @@ Examples:
         ],
         "etc": [
             {
-                "cuantity": 999,
+                "quantity": 999,
                 "name": "Pearl of Darkness",
                 "position": 0,
                 "vnum": 2094
             },
             {
-                "cuantity": 112,
+                "quantity": 112,
                 "name": "Small Bean",
                 "position": 5,
                 "vnum": 2016
@@ -219,7 +219,7 @@ Examples:
             "vnum": 123,
             "x": 69,
             "y": 69,
-            "cuantity": 999,
+            "quantity": 999,
             "owner_id": 56789,
             "id": 45645
         }
