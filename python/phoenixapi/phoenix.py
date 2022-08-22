@@ -38,11 +38,6 @@ class Api:
         self._worker = threading.Thread(target = self._work)
         self._worker.start()
 
-    def __del__(self) -> None:
-        self._do_work = False
-        self._worker.join()
-        self._socket.close()
-
     def _send_data(self, data : str) -> int:
         buffer = data + '\1'
         return self._socket.send(buffer.encode())
@@ -71,6 +66,11 @@ class Api:
 
     def working(self) -> bool:
         return self._worker.is_alive()
+
+    def close(self) -> None:
+        if self.working():
+            self._do_work = False
+            self._worker.join()  
 
     def get_message(self) -> str:
         if self._messages.empty():

@@ -20,3 +20,5 @@ if __name__ == "__main__":
                 print("[RECV]: " + json_msg["packet"])
         else:
             sleep(0.01) 
+
+    api.close()
