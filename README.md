@@ -76,7 +76,7 @@ You can also query the player infomation, inventory, skills and all map entities
 Examples:
 
 * Player information
- 
+  
   ```json
   {
     "type": 16,
@@ -96,7 +96,7 @@ Examples:
   ```
 
 * Inventory
- 
+  
   ```json
   {
     "type": 17,
@@ -142,7 +142,8 @@ Examples:
                 "position": 5,
                 "vnum": 2016
             }
-        ]
+        ],
+        "gold": 1000000
     }
   }
   ```
@@ -175,6 +176,7 @@ Examples:
   ```
 
 * Map entities
+  
   ```json
   {
     "type": 19,
@@ -234,6 +236,7 @@ You can send multiple messages to the bot to send or receive a packet and also d
 Examples:
 
 * `Description`: Send a packet to the game server.
+
 * `packet`: The packet to send to the game server, in this case it uses an item from the inventory
   
   ```json
@@ -246,6 +249,7 @@ Examples:
 ___
 
 * `Description`: Simulates a received packet from the game server.
+
 * `packet`: The packet to get received, in this case it simulates client side getting 1kkk of gold.
   
   ```json
@@ -258,6 +262,7 @@ ___
 ___
 
 * `Description`: Attack a monster by using the top ready skill that you've set in the bot for the player, pet and partner.
+
 * `monster_id`: ID of the monster you want to attack.
   
   ```json
@@ -270,7 +275,9 @@ ___
 ___
 
 * `Description`: Attack a monster with the given skill.
+
 * `monster_id`: ID of the monster you want to attack
+
 * `skill_id`: ID of the skill you want to use.
   
   ```json
@@ -296,7 +303,9 @@ ___
 ___
 
 * `Description`: Attack a monster with the given pet skill.
+
 * `monster_id`: ID of the monster you want to attack
+
 * `skill_id`: ID of the pet skill you want to use.
   
   ```json
@@ -310,7 +319,9 @@ ___
 ___
 
 * `Description`: Attack a monster with the given partner skill.
+
 * `monster_id`: ID of the monster you want to attack
+
 * `skill_id`: ID of the partner skill you want to use.
   
   ```json
@@ -336,6 +347,7 @@ ___
 ___
 
 * `Description`: Walk and pick up the given item.
+
 * `item_id`: ID of the item you want to pick up.
   
   ```json
@@ -348,6 +360,7 @@ ___
 ____
 
 * `Description`: Walk and collect a npc (ice flowers and that kind of stuff).
+
 * `npc_id`: ID of the npc you want to collect.
   
   ```json
@@ -403,7 +416,7 @@ ___
 ___
 
 * `Description`: Starts the minigame bot
-
+  
   ```json
   {
     "type": 14
@@ -413,7 +426,7 @@ ___
 ___
 
 * `Description`: Stops the minigame bot
-
+  
   ```json
   {
     "type": 15
@@ -461,7 +474,7 @@ ___
   ```
 
 ___
-  
+
 ## About the C++ API
 
 To use this API you just need to add the following files into your project and `#include "Api.h"` where you want to use it:
