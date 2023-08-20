@@ -475,6 +475,22 @@ ___
 
 ___
 
+* `Description` : Target an entity in the game client
+
+* `entity_id`: The id of the entity to target
+
+* `entity_type`: The type of entity (1 - player, 2 - npc, 3 - monster)
+  
+  ```json
+  {
+      "type": 20,
+      "entity_type": 3,
+      "entity_id": 2664
+  }
+  ```
+
+____ 
+
 ## About the C++ API
 
 To use this API you just need to add the following files into your project and `#include "Api.h"` where you want to use it:

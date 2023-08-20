@@ -44,7 +44,8 @@ namespace Phoenix
         query_player_info,
         query_inventory,
         query_skills_info,
-        query_map_entities
+        query_map_entities,
+        target_entity
     };
 
     /**
@@ -214,6 +215,13 @@ namespace Phoenix
          * @return false if there's any error, true otherwise
          */
         bool query_map_entities();
+
+        /**
+         * @brief Target an entity client side.
+         * @param entity_id The id of the entity that you want to target
+         * @param entity_type The type of the entity that you want to target (1 - player, 2 - npc, 3 - monster)
+         */
+        bool target_entity(int entity_id, int entity_type);
 
     private:
         /**

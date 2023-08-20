@@ -226,6 +226,16 @@ bool Phoenix::Api::query_map_entities()
     return (send_data(json_data.dump()) != SOCKET_ERROR);
 }
 
+bool Phoenix::Api::target_entity(int entity_id, int entity_type)
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::target_entity;
+    json_data["entity_id"] = entity_id;
+    json_data["entity_type"] = entity_type;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
 void Phoenix::Api::receive_messages()
 {
     constexpr int buffer_size = 4096;
