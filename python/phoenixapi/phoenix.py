@@ -280,7 +280,7 @@ class Api:
     
     def target_entity(self, entity_id : int, entity_type: int):
         data = {
-            "type" : Type.target_entity,
+            "type" : Type.target_entity.value,
             "entity_id" : entity_id,
             "entity_type" : entity_type
         }
