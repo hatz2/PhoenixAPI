@@ -46,7 +46,8 @@ class Api:
 
     def _work(self) -> None:
         buffer_size = 4096
-        data = ""
+        data = b''
+        delim_char = b'\1'
 
         while self._do_work:
             buffer = self._socket.recv(buffer_size)
@@ -54,16 +55,15 @@ class Api:
             if (len(buffer) <= 0):
                 break
 
-            data += buffer.decode()
-            delim_pos = data.find('\1')
+            data += buffer
+            delim_pos = data.find(delim_char)
 
             while delim_pos != -1:
                 msg = data[0:delim_pos]
                 data = data[delim_pos + 1:]
-
-                self._messages.put(msg)
-
-                delim_pos = data.find('\1')
+                decoded_msg = msg.decode()
+                self._messages.put(decoded_msg)
+                delim_pos = data.find(delim_char)
 
     def working(self) -> bool:
         return self._worker.is_alive()
