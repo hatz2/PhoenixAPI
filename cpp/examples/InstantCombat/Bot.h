@@ -7,6 +7,7 @@
 #include <utility>
 #include <thread>
 #include <ctime>
+#include <random>
 
 class Bot : public Module
 {
@@ -15,11 +16,13 @@ public:
 
     void on_recv(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
     void run();
+    void handle_map_entities(const nlohmann::json& data);
 
 private:
     void handle_qnamli(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
     void handle_msgi(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
     void handle_cmap(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
+    void handle_in(const std::vector<std::string>& packet_splitted, const std::string& full_packet);
 
     void walk(int x, int y);
     void load_config();
@@ -33,4 +36,8 @@ private:
     bool move_to_players;
     bool move_to_point;
     bool moving;
+    bool waiting_for_spawn;
+    int current_map_id;
+    clock_t time_begin;
+    std::mt19937 generator;
 };

@@ -40,7 +40,12 @@ namespace Phoenix
         continue_bot,
         load_settings,
         start_minigame_bot,
-        stop_minigame_bot
+        stop_minigame_bot,
+        query_player_info,
+        query_inventory,
+        query_skills_info,
+        query_map_entities,
+        target_entity
     };
 
     /**
@@ -186,6 +191,37 @@ namespace Phoenix
          * @return false if there's any error, true otherwise
          */
         bool stop_minigame_bot();
+
+        /**
+         * @brief Query player information from the bot
+         * @return false if there's any error, true otherwise
+         */
+        bool query_player_info();
+
+        /**
+         * @brief Query the inventory information from the bot
+         * @return false if there's any error, true otherwise
+         */
+        bool query_inventory();
+
+        /**
+         * @brief Query player skills information from the bot
+         * @return false if there's any error, true otherwise
+         */
+        bool query_skills_info();
+
+        /**
+         * @brief Query all the map entities from the bot
+         * @return false if there's any error, true otherwise
+         */
+        bool query_map_entities();
+
+        /**
+         * @brief Target an entity client side.
+         * @param entity_id The id of the entity that you want to target
+         * @param entity_type The type of the entity that you want to target (1 - player, 2 - npc, 3 - monster)
+         */
+        bool target_entity(int entity_id, int entity_type);
 
     private:
         /**

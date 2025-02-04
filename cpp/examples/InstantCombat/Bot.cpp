@@ -1,4 +1,7 @@
 #include "Bot.h"
+#include <random>
+#include <sstream>
+#include <chrono>
 
 Bot::Bot(Phoenix::Api* api, Scene* scene)
     : api(api)
@@ -9,7 +12,11 @@ Bot::Bot(Phoenix::Api* api, Scene* scene)
     , move_to_players(true)
     , move_to_point(false)
     , moving(false)
+    , waiting_for_spawn(false)
+    , current_map_id(0)
 {
+    time_begin = clock();
+    generator = std::mt19937(std::chrono::system_clock::now().time_since_epoch().count());
     load_config();
 }
 
@@ -25,6 +32,20 @@ void Bot::on_recv(const std::vector<std::string>& packet_splitted, const std::st
 
     if (header == "c_map")
         handle_cmap(packet_splitted, full_packet);
+
+    if (header == "in")
+        handle_in(packet_splitted, full_packet);
+}
+
+void Bot::handle_in(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
+{
+    if (current_map_id == ic_map_id && waiting_for_spawn) 
+    {
+        waiting_for_spawn = false;
+        
+        if (moving)
+            moving = false;
+    }
 }
 
 void Bot::handle_qnamli(const std::vector<std::string>& packet_splitted, const std::string& full_packet)
@@ -34,10 +55,20 @@ void Bot::handle_qnamli(const std::vector<std::string>& packet_splitted, const s
 
     if (packet_splitted[2] == "#guri^506" && packet_splitted[3] == "379")
     {
-        Logger::print("Joining instant combat\n");
+        std::uniform_int_distribution<> dist(1000, 10000);
+        int random_delay = dist(generator);
 
-        api->send_packet("guri 508");
-        api->send_packet(packet_splitted[2]);
+        std::thread([this, random_delay, packet_splitted]() {
+            std::stringstream ss;
+            ss << "Joining instant combat with " << random_delay << " ms delay" << std::endl;
+            Logger::print(ss.str());
+            std::this_thread::sleep_for(std::chrono::milliseconds(random_delay));
+            api->send_packet("guri 508");
+            std::uniform_int_distribution<> d(1000, 2000);
+            std::this_thread::sleep_for(std::chrono::milliseconds(d(generator)));
+            api->send_packet(packet_splitted[2]); 
+        }).detach();
+        
     }
 }
 
@@ -69,9 +100,19 @@ void Bot::handle_msgi(const std::vector<std::string>& packet_splitted, const std
         ss << "Round " << round << " finished" << std::endl;
         Logger::print(ss.str());
 
-        moving = true;
         api->stop_bot();
         ++round;
+
+        std::uniform_int_distribution<> dist(1000, 10000);
+        int random_delay = dist(generator);
+
+        std::thread([this, random_delay, packet_splitted]() {
+            std::this_thread::sleep_for(std::chrono::milliseconds(random_delay));
+            moving = true;
+        }).detach();
+
+
+        
     }
 
     if (full_packet == "msgi 0 383 0 0 0 0 0")
@@ -96,12 +137,24 @@ void Bot::handle_cmap(const std::vector<std::string>& packet_splitted, const std
         if (new_map == 0)
             return;
 
+        current_map_id = map_id;
+
         if (map_id == ic_map_id)
         {
-            moving = true;
+            std::uniform_int_distribution<> dist(1000, 10000);
+            int random_delay = dist(generator);
+
+            std::thread([this, random_delay, packet_splitted]() {
+                std::this_thread::sleep_for(std::chrono::milliseconds(random_delay));
+                moving = true;
+            }).detach();
+
+            waiting_for_spawn = true;
         }
         else
         {
+            std::cout << "Map is not IC map" << std::endl;
+            waiting_for_spawn = false;
             moving = false;
             round = 0;
             api->stop_bot();
@@ -117,14 +170,22 @@ void Bot::handle_cmap(const std::vector<std::string>& packet_splitted, const std
     }
 }
 
+void Bot::handle_map_entities(const nlohmann::json& data)
+{
+    // Move to point/players when there are no monsters in the map
+    if (current_map_id == ic_map_id && data["monsters"].size() == 0 && !waiting_for_spawn) {
+        moving = true;
+        waiting_for_spawn = true;
+        api->stop_bot();
+    }
+}
+
 void Bot::run()
 {
-    static clock_t time_begin = clock();
+    float time_diff = float(clock() - time_begin) / CLOCKS_PER_SEC;
 
     if (moving)
     {
-        float time_diff = float(clock() - time_begin) / CLOCKS_PER_SEC;
-
         if (time_diff > 1.0f)
         {
             time_begin = clock();
@@ -138,6 +199,15 @@ void Bot::run()
             {
                 walk(point.first, point.second);
             }
+        }
+    }
+    else 
+    {
+        if (time_diff > 2.0f && current_map_id == ic_map_id)
+        {
+            time_begin = clock();
+            // Send query to check how many mobs are in the map
+            api->query_map_entities();
         }
     }
 }

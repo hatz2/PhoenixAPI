@@ -6,8 +6,88 @@
 #include "Scene.h"
 #include "Split_string.h"
 #include "Logger.h"
+#include <sstream>
 
 int select_port();
+
+class RunningBot {
+public:
+    RunningBot(int port) : port(port) {
+        scene = new Scene;
+        api = new Phoenix::Api(port);
+        bot = new Bot(api, scene);
+        modules.push_back(scene);
+        modules.push_back(bot);
+    }
+
+    ~RunningBot() {
+        modules.clear();
+        delete bot;
+        delete scene;
+        delete api;
+    }
+
+    void update() {
+        if (!api->empty())
+        {
+            std::string message = api->get_message();
+
+            try
+            {
+                nlohmann::json json_msg = nlohmann::json::parse(message);
+
+                if (json_msg["type"] == Phoenix::Type::packet_send)
+                {
+                    std::string packet = json_msg["packet"];
+                    std::vector<std::string> packet_splitted = split_string(packet);
+
+                    if (packet_splitted.size() > 0)
+                    {
+                        for (auto mod : modules)
+                            mod->on_send(packet_splitted, packet);
+                    }
+                }
+
+                if (json_msg["type"] == Phoenix::Type::packet_recv)
+                {
+                    std::string packet = json_msg["packet"];
+                    std::vector<std::string> packet_splitted = split_string(packet);
+
+                    if (packet_splitted.size() > 0)
+                    {
+                        for (auto mod : modules)
+                            mod->on_recv(packet_splitted, packet);
+                    }
+                }
+
+                if (json_msg["type"] == Phoenix::Type::query_map_entities)
+                {
+                    bot->handle_map_entities(json_msg);
+                }
+            }
+            catch (const std::exception& e)
+            {
+                std::stringstream ss;
+                ss << "[" << port << "]: " << e.what() << std::endl;
+                Logger::error(ss.str());
+                return;
+            }
+        }
+        else
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        }
+
+        bot->run();
+    }
+
+private:
+    int port;
+    Phoenix::Api* api;
+    Bot* bot;
+    Scene* scene;
+    std::vector<Module*> modules;
+};
 
 void run_bot(int port)
 {
@@ -53,6 +133,11 @@ void run_bot(int port)
                             mod->on_recv(packet_splitted, packet);
                     }
                 }
+
+                if (json_msg["type"] == Phoenix::Type::query_map_entities)
+                {
+                    bot.handle_map_entities(json_msg);
+                }
             }
             catch (const std::exception& e)
             {
@@ -96,6 +181,41 @@ int main()
 
     return 0;
 }
+
+//int main()
+//{
+//    int selected_port = select_port();
+//
+//    if (selected_port == -1)
+//        return 0;
+//
+//    if (selected_port == 0)
+//    {
+//        std::vector<int> ports = Phoenix::find_ports();
+//        std::vector<RunningBot*> bots;
+//
+//        for (const int port : ports) {
+//            RunningBot* bot = new RunningBot(port);
+//            bots.push_back(bot);
+//        }
+//
+//        while (true) {
+//            for (const auto& bot : bots) {
+//                bot->update();
+//            }
+//        }
+//
+//        for (auto& bot : bots) {
+//            delete bot;
+//        }
+//    }
+//    else
+//    {
+//        run_bot(selected_port);
+//    }
+//
+//    return 0;
+//}
 
 int select_port()
 {

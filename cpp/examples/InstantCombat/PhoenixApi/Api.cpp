@@ -194,6 +194,48 @@ bool Phoenix::Api::stop_minigame_bot()
     return (send_data(json_data.dump()) != SOCKET_ERROR);
 }
 
+bool Phoenix::Api::query_player_info()
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::query_player_info;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::query_inventory()
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::query_inventory;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::query_skills_info()
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::query_skills_info;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::query_map_entities()
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::query_map_entities;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
+bool Phoenix::Api::target_entity(int entity_id, int entity_type)
+{
+    nlohmann::json json_data;
+    json_data["type"] = Type::target_entity;
+    json_data["entity_id"] = entity_id;
+    json_data["entity_type"] = entity_type;
+
+    return (send_data(json_data.dump()) != SOCKET_ERROR);
+}
+
 void Phoenix::Api::receive_messages()
 {
     constexpr int buffer_size = 4096;
