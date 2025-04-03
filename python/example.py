@@ -1,12 +1,10 @@
-from phoenixapi import phoenix
+from phoenixapi import phoenix, finder
 from time import sleep
 import json
 
 if __name__ == "__main__":
-    # Put the port from the bot title, it should look something like
-    # [Lv 99.(+80) CharacterName] - Phoenix Bot:123123
-    port = 123123 
-    api = phoenix.Api(port)
+    # Replace with the actual character name that you want to connect to
+    api = finder.create_api_from_name("Character name") 
 
     # Logs all the packets that are sent/received from the client
     while api.working():
