@@ -85,6 +85,8 @@ Examples:
         "id": 123123,
         "x": 5,
         "y": 8,
+        "dest_x": 25,
+        "dest_y": 69,
         "level": 99,
         "champion_level": 80,
         "hp_percent": 100,
