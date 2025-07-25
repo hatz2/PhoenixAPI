@@ -332,3 +332,10 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+
+compilation.bat
+
+python/venv
+
+.vscode/
+python/test.py

@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package phoenix.game.entities;
+
+import "phoenixapi/protos/position.proto";
+
+enum Direction {
+    DIRECTION_UP = 0;
+    DIRECTION_RIGHT = 1;
+    DIRECTION_DOWN = 2;
+    DIRECTION_LEFT = 3;
+    DIRECTION_UP_LEFT = 4;
+    DIRECTION_UP_RIGHT = 5;
+    DIRECTION_DOWN_RIGHT = 6;
+    DIRECTION_DOWN_LEFT = 7;
+}
+
+enum EntityType {
+    ENTITY_TYPE_UNSPECIFIED = 0;
+    ENTITY_TYPE_PLAYER = 1;
+    ENTITY_TYPE_MONSTER = 2;
+    ENTITY_TYPE_NPC = 3;
+    ENTITY_TYPE_ITEM = 4;
+}
+
+message BaseEntity {
+    sint32 type = 1;
+    sint32 id = 2;
+    Position position = 3;
+}
+
+message MovableEntity {
+    BaseEntity base_entity = 1;
+    Direction direction = 2;
+    sint32 animation_status = 3; // temp as int32
+    int32 speed = 4;
+    bool is_in_combat = 5;
+    int32 health_percent = 6;
+    int32 mana_percent = 7;
+    int32 level = 8;
+    int32 champion_level = 9;
+    bool is_partner = 10;
+    sint32 owner_id = 11;
+    sint32 current_map_id = 12;
+}
+
+message Player {
+    MovableEntity movable_entity = 1;
+    sint32 sp = 2; // temp as int32 can be negative
+    string name = 3;
+    string title = 4;
+    string family = 5;
+    bool is_gm = 6;
+    int32 reputation = 7; // temp as int32
+}
