@@ -339,3 +339,5 @@ python/venv
 
 .vscode/
 python/test.py
+
+.env
