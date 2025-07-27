@@ -3,7 +3,7 @@ from win32gui import EnumWindows, GetWindowText
 from re import search
 from ctypes.wintypes import HWND, LPARAM
 from time import sleep
-from phoenixapi.api import Phoenix
+from .api import Phoenix
 
 _ports: list[int] = []
 

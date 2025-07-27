@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package phoenix.game;
+
+import "google/protobuf/empty.proto";
+
+service PacketManager {
+    rpc Subscribe(Identifier) returns (google.protobuf.Empty) {}
+
+    rpc Unsubscribe(Identifier) returns (google.protobuf.Empty) {}
+
+    rpc GetPendingSendPackets(Identifier) returns (stream Packet) {}
+
+    rpc GetPendingRecvPackets(Identifier) returns (stream Packet) {}
+
+    rpc Send(Packet) returns (google.protobuf.Empty) {}
+
+    rpc Recv(Packet) returns (google.protobuf.Empty) {}
+}
+
+// This identifier can be any random string, I recommend to use some form of uuid
+message Identifier {
+    string id = 1;
+}
+
+message Packet {
+    string data = 1;
+}
+
+

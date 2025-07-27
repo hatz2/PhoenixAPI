@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package phoenix.game;
+
+import "google/protobuf/empty.proto";
+
+enum SkillType {
+    SKILL_TYPE_DAMAGE = 0;
+    SKILL_TYPE_DEBUFF = 1;
+    SKILL_TYPE_BUFF = 2;
+}
+
+enum TargetType {
+    TARGET_TYPE_TARGET = 0;
+    TARGET_TYPE_SELF = 1;
+    TARGET_TYPE_SELF_OR_TARGET = 2;
+    TARGET_TYPE_NO_TARGET = 3;
+}
+
+service SkillManager {
+    rpc GetSkills(google.protobuf.Empty) returns (stream Skill) {}
+
+    rpc FindSkillFromId(FindSkillFromIdRequest) returns (Skill) {}
+
+    rpc FindSkillFromVnum(FindSkillFromVnumRequest) returns (Skill) {}
+}
+
+message FindSkillFromVnumRequest {
+    sint32 vnum = 1;
+}
+
+message FindSkillFromIdRequest {
+    sint32 id = 1;
+}
+
+message Skill {
+    sint32 vnum = 1;
+    string name = 2;
+    sint32 id = 3;
+    SkillType type = 4;
+    int32 range = 5;
+    int32 area = 6;
+    int32 cast_time = 7;
+    int32 cool_time = 8;
+    int32 mana_cost = 9;
+}
