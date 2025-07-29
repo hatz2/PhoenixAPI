@@ -51,6 +51,21 @@ class PlayerManagerStub(object):
                 request_serializer=phoenixapi_dot_protos_dot_position__pb2.Position.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
+        self.Attack = channel.unary_unary(
+                '/phoenix.game.PlayerManager/Attack',
+                request_serializer=phoenixapi_dot_protos_dot_game_dot_playermanager__pb2.AttackRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.PickUp = channel.unary_unary(
+                '/phoenix.game.PlayerManager/PickUp',
+                request_serializer=phoenixapi_dot_protos_dot_game_dot_playermanager__pb2.PickUpRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.Collect = channel.unary_unary(
+                '/phoenix.game.PlayerManager/Collect',
+                request_serializer=phoenixapi_dot_protos_dot_game_dot_playermanager__pb2.CollectRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
 
 
 class PlayerManagerServicer(object):
@@ -74,6 +89,24 @@ class PlayerManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def Attack(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PickUp(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Collect(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_PlayerManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -90,6 +123,21 @@ def add_PlayerManagerServicer_to_server(servicer, server):
             'Walk': grpc.unary_unary_rpc_method_handler(
                     servicer.Walk,
                     request_deserializer=phoenixapi_dot_protos_dot_position__pb2.Position.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'Attack': grpc.unary_unary_rpc_method_handler(
+                    servicer.Attack,
+                    request_deserializer=phoenixapi_dot_protos_dot_game_dot_playermanager__pb2.AttackRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'PickUp': grpc.unary_unary_rpc_method_handler(
+                    servicer.PickUp,
+                    request_deserializer=phoenixapi_dot_protos_dot_game_dot_playermanager__pb2.PickUpRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'Collect': grpc.unary_unary_rpc_method_handler(
+                    servicer.Collect,
+                    request_deserializer=phoenixapi_dot_protos_dot_game_dot_playermanager__pb2.CollectRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -173,6 +221,87 @@ class PlayerManager(object):
             target,
             '/phoenix.game.PlayerManager/Walk',
             phoenixapi_dot_protos_dot_position__pb2.Position.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Attack(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/phoenix.game.PlayerManager/Attack',
+            phoenixapi_dot_protos_dot_game_dot_playermanager__pb2.AttackRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def PickUp(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/phoenix.game.PlayerManager/PickUp',
+            phoenixapi_dot_protos_dot_game_dot_playermanager__pb2.PickUpRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Collect(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/phoenix.game.PlayerManager/Collect',
+            phoenixapi_dot_protos_dot_game_dot_playermanager__pb2.CollectRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,

@@ -27,7 +27,7 @@ from phoenixapi.protos.game import entities_pb2 as phoenixapi_dot_protos_dot_gam
 from phoenixapi.protos import position_pb2 as phoenixapi_dot_protos_dot_position__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n*phoenixapi/protos/game/playermanager.proto\x12\x0cphoenix.game\x1a\x1bgoogle/protobuf/empty.proto\x1a%phoenixapi/protos/game/entities.proto\x1a phoenixapi/protos/position.proto\"\xbf\x01\n\x10PlayerObjManager\x12#\n\x08position\x18\x01 \x01(\x0b\x32\x11.phoenix.Position\x12(\n\rdest_position\x18\x02 \x01(\x0b\x32\x11.phoenix.Position\x12\r\n\x05state\x18\x05 \x01(\x05\x12-\n\x06player\x18\x06 \x01(\x0b\x32\x1d.phoenix.game.entities.Player\x12\n\n\x02id\x18\x07 \x01(\x11\x12\x12\n\nis_resting\x18\x08 \x01(\x08\x32\xdb\x01\n\rPlayerManager\x12O\n\x13GetPlayerObjManager\x12\x16.google.protobuf.Empty\x1a\x1e.phoenix.game.PlayerObjManager\"\x00\x12\x44\n\x10ResetPlayerState\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\x00\x12\x33\n\x04Walk\x12\x11.phoenix.Position\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n*phoenixapi/protos/game/playermanager.proto\x12\x0cphoenix.game\x1a\x1bgoogle/protobuf/empty.proto\x1a%phoenixapi/protos/game/entities.proto\x1a phoenixapi/protos/position.proto\"\xbf\x01\n\x10PlayerObjManager\x12#\n\x08position\x18\x01 \x01(\x0b\x32\x11.phoenix.Position\x12(\n\rdest_position\x18\x02 \x01(\x0b\x32\x11.phoenix.Position\x12\r\n\x05state\x18\x05 \x01(\x05\x12-\n\x06player\x18\x06 \x01(\x0b\x32\x1d.phoenix.game.entities.Player\x12\n\n\x02id\x18\x07 \x01(\x11\x12\x12\n\nis_resting\x18\x08 \x01(\x08\"l\n\rAttackRequest\x12\x36\n\x0b\x65ntity_type\x18\x01 \x01(\x0e\x32!.phoenix.game.entities.EntityType\x12\x11\n\tentity_id\x18\x02 \x01(\x11\x12\x10\n\x08skill_id\x18\x03 \x01(\x11\" \n\rPickUpRequest\x12\x0f\n\x07item_id\x18\x01 \x01(\x11\" \n\x0e\x43ollectRequest\x12\x0e\n\x06npc_id\x18\x02 \x01(\x11\x32\xa0\x03\n\rPlayerManager\x12O\n\x13GetPlayerObjManager\x12\x16.google.protobuf.Empty\x1a\x1e.phoenix.game.PlayerObjManager\"\x00\x12\x44\n\x10ResetPlayerState\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\x00\x12\x33\n\x04Walk\x12\x11.phoenix.Position\x1a\x16.google.protobuf.Empty\"\x00\x12?\n\x06\x41ttack\x12\x1b.phoenix.game.AttackRequest\x1a\x16.google.protobuf.Empty\"\x00\x12?\n\x06PickUp\x12\x1b.phoenix.game.PickUpRequest\x1a\x16.google.protobuf.Empty\"\x00\x12\x41\n\x07\x43ollect\x12\x1c.phoenix.game.CollectRequest\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -36,6 +36,12 @@ if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_PLAYEROBJMANAGER']._serialized_start=163
   _globals['_PLAYEROBJMANAGER']._serialized_end=354
-  _globals['_PLAYERMANAGER']._serialized_start=357
-  _globals['_PLAYERMANAGER']._serialized_end=576
+  _globals['_ATTACKREQUEST']._serialized_start=356
+  _globals['_ATTACKREQUEST']._serialized_end=464
+  _globals['_PICKUPREQUEST']._serialized_start=466
+  _globals['_PICKUPREQUEST']._serialized_end=498
+  _globals['_COLLECTREQUEST']._serialized_start=500
+  _globals['_COLLECTREQUEST']._serialized_end=532
+  _globals['_PLAYERMANAGER']._serialized_start=535
+  _globals['_PLAYERMANAGER']._serialized_end=951
 # @@protoc_insertion_point(module_scope)

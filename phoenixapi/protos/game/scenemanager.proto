@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package phoenix.game;
+
+import "google/protobuf/empty.proto";
+import "phoenixapi/protos/game/entities.proto";
+
+service SceneManager {
+    rpc GetPlayers(google.protobuf.Empty) returns (stream entities.Player) {}
+
+    rpc GetMonsters(google.protobuf.Empty) returns (stream entities.Monster) {}
+
+    rpc GetItems(google.protobuf.Empty) returns (stream entities.Item) {}
+
+    rpc GetNpcs(google.protobuf.Empty) returns (stream entities.Npc) {}
+
+    rpc FindPlayer(FindRequest) returns (entities.Player) {}
+
+    rpc FindMonster(FindRequest) returns (entities.Monster) {}
+
+    rpc FindItem(FindRequest) returns (entities.Item) {}
+
+    rpc FindNpc(FindRequest) returns (entities.Npc) {}
+
+    rpc GetAllBosses(google.protobuf.Empty) returns (stream entities.Monster) {}
+
+    rpc GetMapGrid(google.protobuf.Empty) returns (MapGrid) {}
+}
+
+message FindRequest {
+    sint32 id = 1;
+}
+
+enum CellType {
+    CELL_TYPE_WALKABLE = 0;
+    CELL_TYPE_OBSTACLE = 1;
+    CELL_TYPE_OBSTACLE_2 = 2;
+}
+
+message MapGrid {
+    sint32 width = 1;
+    sint32 height = 2;
+    repeated Row rows = 3;
+}
+
+message Row {
+    repeated CellType cells = 1;
+}
+
+

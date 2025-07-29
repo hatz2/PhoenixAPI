@@ -34,7 +34,7 @@ def create_apis_from_names(character_names: list[str]) -> list[tuple[str, Phoeni
         api = Phoenix(port)
 
         # Ask the bot to give us the player name
-        player_obj_manager = api.player_manager_client.get_player_obj_manager()
+        player_obj_manager = api.player_manager.get_player_obj_manager()
         name = player_obj_manager.player.name
 
         if name in character_names:
@@ -66,7 +66,7 @@ def create_api_from_name(character_name: str) -> Phoenix:
         api = Phoenix(port)
 
         # Ask the bot to give us the player name
-        player_obj_manager = api.player_manager_client.get_player_obj_manager()
+        player_obj_manager = api.player_manager.get_player_obj_manager()
         name = player_obj_manager.player.name
 
         if name == character_name:

@@ -23,3 +23,25 @@ class PlayerObjManager(_message.Message):
     id: int
     is_resting: bool
     def __init__(self, position: _Optional[_Union[_position_pb2.Position, _Mapping]] = ..., dest_position: _Optional[_Union[_position_pb2.Position, _Mapping]] = ..., state: _Optional[int] = ..., player: _Optional[_Union[_entities_pb2.Player, _Mapping]] = ..., id: _Optional[int] = ..., is_resting: bool = ...) -> None: ...
+
+class AttackRequest(_message.Message):
+    __slots__ = ("entity_type", "entity_id", "skill_id")
+    ENTITY_TYPE_FIELD_NUMBER: _ClassVar[int]
+    ENTITY_ID_FIELD_NUMBER: _ClassVar[int]
+    SKILL_ID_FIELD_NUMBER: _ClassVar[int]
+    entity_type: _entities_pb2.EntityType
+    entity_id: int
+    skill_id: int
+    def __init__(self, entity_type: _Optional[_Union[_entities_pb2.EntityType, str]] = ..., entity_id: _Optional[int] = ..., skill_id: _Optional[int] = ...) -> None: ...
+
+class PickUpRequest(_message.Message):
+    __slots__ = ("item_id",)
+    ITEM_ID_FIELD_NUMBER: _ClassVar[int]
+    item_id: int
+    def __init__(self, item_id: _Optional[int] = ...) -> None: ...
+
+class CollectRequest(_message.Message):
+    __slots__ = ("npc_id",)
+    NPC_ID_FIELD_NUMBER: _ClassVar[int]
+    npc_id: int
+    def __init__(self, npc_id: _Optional[int] = ...) -> None: ...

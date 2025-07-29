@@ -44,10 +44,10 @@ class BaseEntity(_message.Message):
     TYPE_FIELD_NUMBER: _ClassVar[int]
     ID_FIELD_NUMBER: _ClassVar[int]
     POSITION_FIELD_NUMBER: _ClassVar[int]
-    type: int
+    type: EntityType
     id: int
     position: _position_pb2.Position
-    def __init__(self, type: _Optional[int] = ..., id: _Optional[int] = ..., position: _Optional[_Union[_position_pb2.Position, _Mapping]] = ...) -> None: ...
+    def __init__(self, type: _Optional[_Union[EntityType, str]] = ..., id: _Optional[int] = ..., position: _Optional[_Union[_position_pb2.Position, _Mapping]] = ...) -> None: ...
 
 class MovableEntity(_message.Message):
     __slots__ = ("base_entity", "direction", "animation_status", "speed", "is_in_combat", "health_percent", "mana_percent", "level", "champion_level", "is_partner", "owner_id", "current_map_id")
@@ -94,3 +94,43 @@ class Player(_message.Message):
     is_gm: bool
     reputation: int
     def __init__(self, movable_entity: _Optional[_Union[MovableEntity, _Mapping]] = ..., sp: _Optional[int] = ..., name: _Optional[str] = ..., title: _Optional[str] = ..., family: _Optional[str] = ..., is_gm: bool = ..., reputation: _Optional[int] = ...) -> None: ...
+
+class Monster(_message.Message):
+    __slots__ = ("movable_entity", "vnum", "name", "race", "skin_id", "is_boss")
+    MOVABLE_ENTITY_FIELD_NUMBER: _ClassVar[int]
+    VNUM_FIELD_NUMBER: _ClassVar[int]
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    RACE_FIELD_NUMBER: _ClassVar[int]
+    SKIN_ID_FIELD_NUMBER: _ClassVar[int]
+    IS_BOSS_FIELD_NUMBER: _ClassVar[int]
+    movable_entity: MovableEntity
+    vnum: int
+    name: str
+    race: int
+    skin_id: int
+    is_boss: bool
+    def __init__(self, movable_entity: _Optional[_Union[MovableEntity, _Mapping]] = ..., vnum: _Optional[int] = ..., name: _Optional[str] = ..., race: _Optional[int] = ..., skin_id: _Optional[int] = ..., is_boss: bool = ...) -> None: ...
+
+class Item(_message.Message):
+    __slots__ = ("base_entity", "vnum", "quantity", "owner_id", "is_quest_item", "name")
+    BASE_ENTITY_FIELD_NUMBER: _ClassVar[int]
+    VNUM_FIELD_NUMBER: _ClassVar[int]
+    QUANTITY_FIELD_NUMBER: _ClassVar[int]
+    OWNER_ID_FIELD_NUMBER: _ClassVar[int]
+    IS_QUEST_ITEM_FIELD_NUMBER: _ClassVar[int]
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    base_entity: BaseEntity
+    vnum: int
+    quantity: int
+    owner_id: int
+    is_quest_item: bool
+    name: str
+    def __init__(self, base_entity: _Optional[_Union[BaseEntity, _Mapping]] = ..., vnum: _Optional[int] = ..., quantity: _Optional[int] = ..., owner_id: _Optional[int] = ..., is_quest_item: bool = ..., name: _Optional[str] = ...) -> None: ...
+
+class Npc(_message.Message):
+    __slots__ = ("monster", "name")
+    MONSTER_FIELD_NUMBER: _ClassVar[int]
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    monster: Monster
+    name: str
+    def __init__(self, monster: _Optional[_Union[Monster, _Mapping]] = ..., name: _Optional[str] = ...) -> None: ...

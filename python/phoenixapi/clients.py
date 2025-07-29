@@ -2,12 +2,15 @@ import uuid
 from grpc import Channel
 from phoenixapi.protos.position_pb2 import Position
 from google.protobuf.empty_pb2 import Empty
+from phoenixapi.protos.game.entities_pb2 import EntityType, Player, Monster, Item, Npc
 from phoenixapi.protos.game.playermanager_pb2_grpc import PlayerManagerStub
-from phoenixapi.protos.game.playermanager_pb2 import PlayerObjManager
+from phoenixapi.protos.game.playermanager_pb2 import PlayerObjManager, AttackRequest, PickUpRequest, CollectRequest
 from phoenixapi.protos.game.packetmanager_pb2_grpc import PacketManagerStub
 from phoenixapi.protos.game.packetmanager_pb2 import Identifier, Packet
 from phoenixapi.protos.game.skillmanager_pb2_grpc import SkillManagerStub
 from phoenixapi.protos.game.skillmanager_pb2 import Skill, FindSkillFromIdRequest, FindSkillFromVnumRequest
+from phoenixapi.protos.game.scenemanager_pb2_grpc import SceneManagerStub
+from phoenixapi.protos.game.scenemanager_pb2 import FindRequest, MapGrid
 
 
 class PlayerManagerClient:
@@ -25,11 +28,28 @@ class PlayerManagerClient:
         pos = Position()
         pos.x = x
         pos.y = y
-        return self._stub.Walk(pos)
+        self._stub.Walk(pos)
     
     def reset_player_state(self) -> None:
         """Resets your player state as if you would click the ground"""
-        return self._stub.ResetPlayerState(Empty())
+        self._stub.ResetPlayerState(Empty())
+    
+    def attack(self, entity_type: EntityType, entity_id: int, skill_id: int) -> None:
+        request = AttackRequest()
+        request.entity_type = entity_type
+        request.entity_id = entity_id
+        request.skill_id = skill_id
+        self._stub.Attack(request)
+    
+    def pick_up(self, item_id: int) -> None:
+        request = PickUpRequest()
+        request.item_id = item_id
+        self._stub.PickUp(request)
+
+    def collect(self, npc_id: int) -> None:
+        request = CollectRequest()
+        request.npc_id = npc_id
+        self._stub.Collect(request)
     
 
 class PacketManagerClient:
@@ -98,3 +118,46 @@ class SkillManagerClient:
         request.id = id
         return self._stub.FindSkillFromId(request)
     
+
+class SceneManagerClient:
+
+    def __init__(self, channel: Channel):
+        self._stub = SceneManagerStub(channel)
+
+    def get_players(self) -> list[Player]:
+        return self._stub.GetPlayers(Empty())
+    
+    def get_monsters(self) -> list[Monster]:
+        return self._stub.GetMonsters(Empty())
+    
+    def get_items(self) -> list[Item]:
+        return self._stub.GetItems(Empty())
+    
+    def get_npcs(self) -> list[Npc]:
+        return self._stub.GetNpcs(Empty())
+    
+    def find_player(self, player_id: int) -> Player:
+        request = FindRequest()
+        request.id = player_id
+        return self._stub.FindPlayer(request)
+    
+    def find_monster(self, monster_id: int) -> Monster:
+        request = FindRequest()
+        request.id = monster_id
+        return self._stub.FindMonster(request)
+    
+    def find_npc(self, npc_id: int) -> Npc:
+        request = FindRequest()
+        request.id = npc_id
+        return self._stub.FindNpc(request)
+    
+    def find_item(self, item_id: int) -> Item:
+        request = FindRequest()
+        request.id = item_id
+        return self._stub.FindItem(request)
+    
+    def get_all_bosses(self) -> list[Monster]:
+        return self._stub.GetAllBosses(Empty())
+    
+    def get_map_grid(self) -> MapGrid:
+        return self._stub.GetMapGrid(Empty())

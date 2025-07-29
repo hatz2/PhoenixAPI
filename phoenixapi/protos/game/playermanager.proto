@@ -12,6 +12,12 @@ service PlayerManager {
     rpc ResetPlayerState(google.protobuf.Empty) returns (google.protobuf.Empty) {}
 
     rpc Walk(Position) returns (google.protobuf.Empty) {}
+
+    rpc Attack(AttackRequest) returns (google.protobuf.Empty) {}
+
+    rpc PickUp(PickUpRequest) returns (google.protobuf.Empty) {}
+
+    rpc Collect(CollectRequest) returns (google.protobuf.Empty) {}
 }
 
 message PlayerObjManager {
@@ -22,3 +28,18 @@ message PlayerObjManager {
     sint32 id = 7;
     bool is_resting = 8;
 }
+
+message AttackRequest {
+    entities.EntityType entity_type = 1;
+    sint32 entity_id = 2;
+    sint32 skill_id = 3;
+}
+
+message PickUpRequest {
+    sint32 item_id = 1;
+}
+
+message CollectRequest {
+    sint32 npc_id = 2;
+}
+
