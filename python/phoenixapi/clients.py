@@ -75,11 +75,11 @@ class PacketManagerClient:
         self.subscribed = False
         self._stub.Unsubscribe(self.identifier)
     
-    def get_pending_send_packets(self):
+    def get_pending_send_packets(self) -> list[Packet]:
         """Returns the pending send packets that haven't been processed yet"""
         return self._stub.GetPendingSendPackets(self.identifier)
     
-    def get_pending_recv_packets(self):
+    def get_pending_recv_packets(self) -> list[Packet]:
         """Returns the pending recv packets that haven't been processed yet"""
         return self._stub.GetPendingRecvPackets(self.identifier)
     
@@ -102,7 +102,7 @@ class SkillManagerClient:
     def __init__(self, channel: Channel):
         self._stub = SkillManagerStub(channel)
 
-    def get_skills(self):
+    def get_skills(self) -> list[Skill]:
         """Return your skills in an iterable class"""
         return self._stub.GetSkills(Empty())
     
@@ -120,6 +120,7 @@ class SkillManagerClient:
     
 
 class SceneManagerClient:
+    """Allows interaction with the game scene"""
 
     def __init__(self, channel: Channel):
         self._stub = SceneManagerStub(channel)
