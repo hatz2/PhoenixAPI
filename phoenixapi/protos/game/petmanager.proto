@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package phoenix.game;
+
+import "google/protobuf/empty.proto";
+import "phoenixapi/protos/game/entities.proto";
+import "phoenixapi/protos/position.proto";
+
+service PetManager {
+    
+}

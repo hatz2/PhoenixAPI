@@ -5,7 +5,7 @@ from phoenixapi.protos.position_pb2 import Position
 from google.protobuf.empty_pb2 import Empty
 from phoenixapi.protos.game.entities_pb2 import EntityType, Player, Monster, Item, Npc
 from phoenixapi.protos.game.playermanager_pb2_grpc import PlayerManagerStub
-from phoenixapi.protos.game.playermanager_pb2 import PlayerObjManager, AttackRequest, PickUpRequest, CollectRequest
+from phoenixapi.protos.game.playermanager_pb2 import PlayerObjManager, AttackRequest, PickUpRequest, CollectRequest, TargetRequest
 from phoenixapi.protos.game.packetmanager_pb2_grpc import PacketManagerStub
 from phoenixapi.protos.game.packetmanager_pb2 import Identifier, Packet
 from phoenixapi.protos.game.skillmanager_pb2_grpc import SkillManagerStub
@@ -52,6 +52,12 @@ class PlayerManagerClient:
         request = CollectRequest()
         request.npc_id = npc_id
         self._stub.Collect(request)
+
+    def target(self, entity_type: EntityType, entity_id: int) -> None:
+        request = TargetRequest()
+        request.entity_type = entity_type
+        request.entity_id = entity_id
+        self._stub.Target(request)
     
 
 class PacketManagerClient:
@@ -216,5 +222,3 @@ class InventoryManagerClient:
         request.target_id = target_id
         response = self._stub.UseItemOnTarget(request)
         return response.response
-
-
