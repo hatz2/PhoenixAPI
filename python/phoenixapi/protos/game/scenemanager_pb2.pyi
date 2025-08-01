@@ -39,3 +39,27 @@ class Row(_message.Message):
     CELLS_FIELD_NUMBER: _ClassVar[int]
     cells: _containers.RepeatedScalarFieldContainer[CellType]
     def __init__(self, cells: _Optional[_Iterable[_Union[CellType, str]]] = ...) -> None: ...
+
+class PlayerList(_message.Message):
+    __slots__ = ("players",)
+    PLAYERS_FIELD_NUMBER: _ClassVar[int]
+    players: _containers.RepeatedCompositeFieldContainer[_entities_pb2.Player]
+    def __init__(self, players: _Optional[_Iterable[_Union[_entities_pb2.Player, _Mapping]]] = ...) -> None: ...
+
+class MonsterList(_message.Message):
+    __slots__ = ("monsters",)
+    MONSTERS_FIELD_NUMBER: _ClassVar[int]
+    monsters: _containers.RepeatedCompositeFieldContainer[_entities_pb2.Monster]
+    def __init__(self, monsters: _Optional[_Iterable[_Union[_entities_pb2.Monster, _Mapping]]] = ...) -> None: ...
+
+class NpcList(_message.Message):
+    __slots__ = ("npcs",)
+    NPCS_FIELD_NUMBER: _ClassVar[int]
+    npcs: _containers.RepeatedCompositeFieldContainer[_entities_pb2.Npc]
+    def __init__(self, npcs: _Optional[_Iterable[_Union[_entities_pb2.Npc, _Mapping]]] = ...) -> None: ...
+
+class ItemList(_message.Message):
+    __slots__ = ("items",)
+    ITEMS_FIELD_NUMBER: _ClassVar[int]
+    items: _containers.RepeatedCompositeFieldContainer[_entities_pb2.Item]
+    def __init__(self, items: _Optional[_Iterable[_Union[_entities_pb2.Item, _Mapping]]] = ...) -> None: ...

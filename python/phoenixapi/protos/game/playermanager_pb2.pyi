@@ -45,3 +45,11 @@ class CollectRequest(_message.Message):
     NPC_ID_FIELD_NUMBER: _ClassVar[int]
     npc_id: int
     def __init__(self, npc_id: _Optional[int] = ...) -> None: ...
+
+class TargetRequest(_message.Message):
+    __slots__ = ("entity_type", "entity_id")
+    ENTITY_TYPE_FIELD_NUMBER: _ClassVar[int]
+    ENTITY_ID_FIELD_NUMBER: _ClassVar[int]
+    entity_type: _entities_pb2.EntityType
+    entity_id: int
+    def __init__(self, entity_type: _Optional[_Union[_entities_pb2.EntityType, str]] = ..., entity_id: _Optional[int] = ...) -> None: ...

@@ -6,13 +6,13 @@ import "google/protobuf/empty.proto";
 import "phoenixapi/protos/game/entities.proto";
 
 service SceneManager {
-    rpc GetPlayers(google.protobuf.Empty) returns (stream entities.Player) {}
+    rpc GetPlayers(google.protobuf.Empty) returns (PlayerList) {}
 
-    rpc GetMonsters(google.protobuf.Empty) returns (stream entities.Monster) {}
+    rpc GetMonsters(google.protobuf.Empty) returns (MonsterList) {}
 
-    rpc GetItems(google.protobuf.Empty) returns (stream entities.Item) {}
+    rpc GetItems(google.protobuf.Empty) returns (ItemList) {}
 
-    rpc GetNpcs(google.protobuf.Empty) returns (stream entities.Npc) {}
+    rpc GetNpcs(google.protobuf.Empty) returns (NpcList) {}
 
     rpc FindPlayer(FindRequest) returns (entities.Player) {}
 
@@ -22,7 +22,7 @@ service SceneManager {
 
     rpc FindNpc(FindRequest) returns (entities.Npc) {}
 
-    rpc GetAllBosses(google.protobuf.Empty) returns (stream entities.Monster) {}
+    rpc GetAllBosses(google.protobuf.Empty) returns (MonsterList) {}
 
     rpc GetMapGrid(google.protobuf.Empty) returns (MapGrid) {}
 }
@@ -45,6 +45,22 @@ message MapGrid {
 
 message Row {
     repeated CellType cells = 1;
+}
+
+message PlayerList {
+    repeated entities.Player players = 1;
+}
+
+message MonsterList {
+    repeated entities.Monster monsters = 1;
+}
+
+message NpcList {
+    repeated entities.Npc npcs = 1;
+}
+
+message ItemList {
+    repeated entities.Item items = 1;
 }
 
 

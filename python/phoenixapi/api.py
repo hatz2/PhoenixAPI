@@ -13,3 +13,4 @@ class Phoenix:
         self.packet_manager = PacketManagerClient(channel)
         self.skill_manager = SkillManagerClient(channel)
         self.scene_manager = SceneManagerClient(channel)
+        self.inventory = InventoryManagerClient(channel)

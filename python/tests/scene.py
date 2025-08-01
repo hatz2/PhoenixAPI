@@ -9,7 +9,7 @@ def run():
     players = api.scene_manager.get_players()
     print("Players:")
     for player in players:
-        print(f"\t- {player.name} ({player.movable_entity.base_entity.id})")
+        print(f"\t- {player.name} ({player.movable_entity.base_entity.id}) [{player.family}]")
 
     monsters = api.scene_manager.get_monsters()
     print("Monsters:")

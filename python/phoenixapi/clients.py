@@ -1,5 +1,6 @@
 import uuid
 from grpc import Channel
+from grpc._channel import _MultiThreadedRendezvous
 from phoenixapi.protos.position_pb2 import Position
 from google.protobuf.empty_pb2 import Empty
 from phoenixapi.protos.game.entities_pb2 import EntityType, Player, Monster, Item, Npc
@@ -11,7 +12,8 @@ from phoenixapi.protos.game.skillmanager_pb2_grpc import SkillManagerStub
 from phoenixapi.protos.game.skillmanager_pb2 import Skill, FindSkillFromIdRequest, FindSkillFromVnumRequest
 from phoenixapi.protos.game.scenemanager_pb2_grpc import SceneManagerStub
 from phoenixapi.protos.game.scenemanager_pb2 import FindRequest, MapGrid
-
+from phoenixapi.protos.game.inventorymanager_pb2_grpc import InventoryManagerStub
+from phoenixapi.protos.game.inventorymanager_pb2 import InvSlot, InvSlotList, InventorySlotRequest, GoldResponse, InventoryTabType, FindItemRequest, UseItemResponseType, UseItemRequest, UseItemResponse, UseItemOnTargetRequest
 
 class PlayerManagerClient:
     """Allows querying data from your character and performing actions with it"""
@@ -75,12 +77,12 @@ class PacketManagerClient:
         self.subscribed = False
         self._stub.Unsubscribe(self.identifier)
     
-    def get_pending_send_packets(self) -> list[Packet]:
-        """Returns the pending send packets that haven't been processed yet"""
+    def get_pending_send_packets(self) -> _MultiThreadedRendezvous:
+        """Returns the pending send packets that haven't been processed yet as an iterable object"""
         return self._stub.GetPendingSendPackets(self.identifier)
     
-    def get_pending_recv_packets(self) -> list[Packet]:
-        """Returns the pending recv packets that haven't been processed yet"""
+    def get_pending_recv_packets(self) -> _MultiThreadedRendezvous:
+        """Returns the pending recv packets that haven't been processed yet as an iterable object"""
         return self._stub.GetPendingRecvPackets(self.identifier)
     
     def send(self, packet: str) -> None:
@@ -103,8 +105,8 @@ class SkillManagerClient:
         self._stub = SkillManagerStub(channel)
 
     def get_skills(self) -> list[Skill]:
-        """Return your skills in an iterable class"""
-        return self._stub.GetSkills(Empty())
+        skill_list = self._stub.GetSkills(Empty())
+        return list(skill_list.skills)
     
     def find_skill_from_vnum(self, vnum: int) -> Skill:
         """Returns the skill matching the vnum"""
@@ -126,16 +128,20 @@ class SceneManagerClient:
         self._stub = SceneManagerStub(channel)
 
     def get_players(self) -> list[Player]:
-        return self._stub.GetPlayers(Empty())
+        player_list = self._stub.GetPlayers(Empty())
+        return list(player_list.players)
     
     def get_monsters(self) -> list[Monster]:
-        return self._stub.GetMonsters(Empty())
+        monster_list = self._stub.GetMonsters(Empty())
+        return list(monster_list.monsters)
     
     def get_items(self) -> list[Item]:
-        return self._stub.GetItems(Empty())
+        item_list = self._stub.GetItems(Empty())
+        return list(item_list.items)
     
     def get_npcs(self) -> list[Npc]:
-        return self._stub.GetNpcs(Empty())
+        npc_list = self._stub.GetNpcs(Empty())
+        return list(npc_list.npcs)
     
     def find_player(self, player_id: int) -> Player:
         request = FindRequest()
@@ -158,7 +164,57 @@ class SceneManagerClient:
         return self._stub.FindItem(request)
     
     def get_all_bosses(self) -> list[Monster]:
-        return self._stub.GetAllBosses(Empty())
+        monster_list = self._stub.GetAllBosses(Empty())
+        return list(monster_list.monsters)
     
     def get_map_grid(self) -> MapGrid:
         return self._stub.GetMapGrid(Empty())
+    
+class InventoryManagerClient:
+    """Allows interaction with your character inventory"""
+
+    def __init__(self, channel: Channel):
+        self._stub = InventoryManagerStub(channel)
+
+    def get_gold(self) -> int:
+        response: GoldResponse = self._stub.GetGold(Empty())
+        return response.gold
+    
+    def get_equip_tab(self) -> list[InvSlot]:
+        response: InvSlotList = self._stub.GetEquipTab(Empty())
+        return list(response.inv_slots)
+    
+    def get_main_tab(self) -> list[InvSlot]:
+        response: InvSlotList = self._stub.GetMainTab(Empty())
+        return list(response.inv_slots)
+    
+    def get_etc_tab(self) -> list[InvSlot]:
+        response: InvSlotList = self._stub.GetEtcTab(Empty())
+        return list(response.inv_slots)
+    
+    def get_inventory_slot(self, inv_tab: InventoryTabType, index: int) -> InvSlot:
+        request = InventorySlotRequest()
+        request.inv_tab_type = inv_tab
+        request.index = index
+        return self._stub.GetInventorySlot(request)
+    
+    def find_item(self, vnum: int) -> InvSlot:
+        request = FindItemRequest()
+        request.vnum = vnum
+        return self._stub.FindItem(request)
+    
+    def use_item(self, vnum: int) -> UseItemResponseType:
+        request = UseItemRequest()
+        request.vnum = vnum
+        response: UseItemResponse = self._stub.UseItem(request)
+        return response.response
+    
+    def use_item_on_target(self, vnum: int, target_type: EntityType, target_id: int) -> UseItemResponseType:
+        request = UseItemOnTargetRequest()
+        request.vnum = vnum
+        request.target_type = target_type
+        request.target_id = target_id
+        response = self._stub.UseItemOnTarget(request)
+        return response.response
+
+

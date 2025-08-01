@@ -1,7 +1,9 @@
 from google.protobuf import empty_pb2 as _empty_pb2
+from google.protobuf.internal import containers as _containers
 from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
+from collections.abc import Iterable as _Iterable, Mapping as _Mapping
 from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
@@ -59,3 +61,9 @@ class Skill(_message.Message):
     cool_time: int
     mana_cost: int
     def __init__(self, vnum: _Optional[int] = ..., name: _Optional[str] = ..., id: _Optional[int] = ..., type: _Optional[_Union[SkillType, str]] = ..., range: _Optional[int] = ..., area: _Optional[int] = ..., cast_time: _Optional[int] = ..., cool_time: _Optional[int] = ..., mana_cost: _Optional[int] = ...) -> None: ...
+
+class SkillList(_message.Message):
+    __slots__ = ("skills",)
+    SKILLS_FIELD_NUMBER: _ClassVar[int]
+    skills: _containers.RepeatedCompositeFieldContainer[Skill]
+    def __init__(self, skills: _Optional[_Iterable[_Union[Skill, _Mapping]]] = ...) -> None: ...

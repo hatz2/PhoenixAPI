@@ -18,7 +18,7 @@ enum TargetType {
 }
 
 service SkillManager {
-    rpc GetSkills(google.protobuf.Empty) returns (stream Skill) {}
+    rpc GetSkills(google.protobuf.Empty) returns (SkillList) {}
 
     rpc FindSkillFromId(FindSkillFromIdRequest) returns (Skill) {}
 
@@ -43,4 +43,8 @@ message Skill {
     int32 cast_time = 7;
     int32 cool_time = 8;
     int32 mana_cost = 9;
+}
+
+message SkillList {
+    repeated Skill skills = 1;
 }

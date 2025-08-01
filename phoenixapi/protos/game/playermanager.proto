@@ -18,6 +18,8 @@ service PlayerManager {
     rpc PickUp(PickUpRequest) returns (google.protobuf.Empty) {}
 
     rpc Collect(CollectRequest) returns (google.protobuf.Empty) {}
+
+    rpc Target(TargetRequest) returns (google.protobuf.Empty) {}
 }
 
 message PlayerObjManager {
@@ -41,5 +43,10 @@ message PickUpRequest {
 
 message CollectRequest {
     sint32 npc_id = 2;
+}
+
+message TargetRequest {
+    entities.EntityType entity_type = 1;
+    sint32 entity_id = 2;
 }
 

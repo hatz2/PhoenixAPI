@@ -36,25 +36,25 @@ class SceneManagerStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetPlayers = channel.unary_stream(
+        self.GetPlayers = channel.unary_unary(
                 '/phoenix.game.SceneManager/GetPlayers',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-                response_deserializer=phoenixapi_dot_protos_dot_game_dot_entities__pb2.Player.FromString,
+                response_deserializer=phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.PlayerList.FromString,
                 _registered_method=True)
-        self.GetMonsters = channel.unary_stream(
+        self.GetMonsters = channel.unary_unary(
                 '/phoenix.game.SceneManager/GetMonsters',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-                response_deserializer=phoenixapi_dot_protos_dot_game_dot_entities__pb2.Monster.FromString,
+                response_deserializer=phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.MonsterList.FromString,
                 _registered_method=True)
-        self.GetItems = channel.unary_stream(
+        self.GetItems = channel.unary_unary(
                 '/phoenix.game.SceneManager/GetItems',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-                response_deserializer=phoenixapi_dot_protos_dot_game_dot_entities__pb2.Item.FromString,
+                response_deserializer=phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.ItemList.FromString,
                 _registered_method=True)
-        self.GetNpcs = channel.unary_stream(
+        self.GetNpcs = channel.unary_unary(
                 '/phoenix.game.SceneManager/GetNpcs',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-                response_deserializer=phoenixapi_dot_protos_dot_game_dot_entities__pb2.Npc.FromString,
+                response_deserializer=phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.NpcList.FromString,
                 _registered_method=True)
         self.FindPlayer = channel.unary_unary(
                 '/phoenix.game.SceneManager/FindPlayer',
@@ -76,10 +76,10 @@ class SceneManagerStub(object):
                 request_serializer=phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.FindRequest.SerializeToString,
                 response_deserializer=phoenixapi_dot_protos_dot_game_dot_entities__pb2.Npc.FromString,
                 _registered_method=True)
-        self.GetAllBosses = channel.unary_stream(
+        self.GetAllBosses = channel.unary_unary(
                 '/phoenix.game.SceneManager/GetAllBosses',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-                response_deserializer=phoenixapi_dot_protos_dot_game_dot_entities__pb2.Monster.FromString,
+                response_deserializer=phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.MonsterList.FromString,
                 _registered_method=True)
         self.GetMapGrid = channel.unary_unary(
                 '/phoenix.game.SceneManager/GetMapGrid',
@@ -154,25 +154,25 @@ class SceneManagerServicer(object):
 
 def add_SceneManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetPlayers': grpc.unary_stream_rpc_method_handler(
+            'GetPlayers': grpc.unary_unary_rpc_method_handler(
                     servicer.GetPlayers,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                    response_serializer=phoenixapi_dot_protos_dot_game_dot_entities__pb2.Player.SerializeToString,
+                    response_serializer=phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.PlayerList.SerializeToString,
             ),
-            'GetMonsters': grpc.unary_stream_rpc_method_handler(
+            'GetMonsters': grpc.unary_unary_rpc_method_handler(
                     servicer.GetMonsters,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                    response_serializer=phoenixapi_dot_protos_dot_game_dot_entities__pb2.Monster.SerializeToString,
+                    response_serializer=phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.MonsterList.SerializeToString,
             ),
-            'GetItems': grpc.unary_stream_rpc_method_handler(
+            'GetItems': grpc.unary_unary_rpc_method_handler(
                     servicer.GetItems,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                    response_serializer=phoenixapi_dot_protos_dot_game_dot_entities__pb2.Item.SerializeToString,
+                    response_serializer=phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.ItemList.SerializeToString,
             ),
-            'GetNpcs': grpc.unary_stream_rpc_method_handler(
+            'GetNpcs': grpc.unary_unary_rpc_method_handler(
                     servicer.GetNpcs,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                    response_serializer=phoenixapi_dot_protos_dot_game_dot_entities__pb2.Npc.SerializeToString,
+                    response_serializer=phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.NpcList.SerializeToString,
             ),
             'FindPlayer': grpc.unary_unary_rpc_method_handler(
                     servicer.FindPlayer,
@@ -194,10 +194,10 @@ def add_SceneManagerServicer_to_server(servicer, server):
                     request_deserializer=phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.FindRequest.FromString,
                     response_serializer=phoenixapi_dot_protos_dot_game_dot_entities__pb2.Npc.SerializeToString,
             ),
-            'GetAllBosses': grpc.unary_stream_rpc_method_handler(
+            'GetAllBosses': grpc.unary_unary_rpc_method_handler(
                     servicer.GetAllBosses,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                    response_serializer=phoenixapi_dot_protos_dot_game_dot_entities__pb2.Monster.SerializeToString,
+                    response_serializer=phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.MonsterList.SerializeToString,
             ),
             'GetMapGrid': grpc.unary_unary_rpc_method_handler(
                     servicer.GetMapGrid,
@@ -226,12 +226,12 @@ class SceneManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(
+        return grpc.experimental.unary_unary(
             request,
             target,
             '/phoenix.game.SceneManager/GetPlayers',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            phoenixapi_dot_protos_dot_game_dot_entities__pb2.Player.FromString,
+            phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.PlayerList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -253,12 +253,12 @@ class SceneManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(
+        return grpc.experimental.unary_unary(
             request,
             target,
             '/phoenix.game.SceneManager/GetMonsters',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            phoenixapi_dot_protos_dot_game_dot_entities__pb2.Monster.FromString,
+            phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.MonsterList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -280,12 +280,12 @@ class SceneManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(
+        return grpc.experimental.unary_unary(
             request,
             target,
             '/phoenix.game.SceneManager/GetItems',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            phoenixapi_dot_protos_dot_game_dot_entities__pb2.Item.FromString,
+            phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.ItemList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -307,12 +307,12 @@ class SceneManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(
+        return grpc.experimental.unary_unary(
             request,
             target,
             '/phoenix.game.SceneManager/GetNpcs',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            phoenixapi_dot_protos_dot_game_dot_entities__pb2.Npc.FromString,
+            phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.NpcList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -442,12 +442,12 @@ class SceneManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(
+        return grpc.experimental.unary_unary(
             request,
             target,
             '/phoenix.game.SceneManager/GetAllBosses',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            phoenixapi_dot_protos_dot_game_dot_entities__pb2.Monster.FromString,
+            phoenixapi_dot_protos_dot_game_dot_scenemanager__pb2.MonsterList.FromString,
             options,
             channel_credentials,
             insecure,

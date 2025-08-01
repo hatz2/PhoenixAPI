@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package phoenix.game;
+
+import "google/protobuf/empty.proto";
+import "phoenixapi/protos/game/entities.proto";
+
+enum InventoryTabType {
+    INVENTORY_TAB_TYPE_EQUIP = 0;
+    INVENTORY_TAB_TYPE_MAIN = 1;
+    INVENTORY_TAB_TYPE_ETC = 2;
+}
+
+enum UseItemResponseType {
+    USE_ITEM_RESPONSE_TYPE_UNSPECIFIED = 0;         // unknown error
+    USE_ITEM_RESPONSE_TYPE_USED = 1;                // used correctly
+    USE_ITEM_RESPONSE_TYPE_NOT_FOUND = 2;           // not enough quantity to use the item
+    USE_ITEM_RESPONSE_TYPE_TARGET_NOT_FOUND = 3;    // target entity not found
+    USE_ITEM_RESPONSE_TYPE_WRONG_PARAMETERS = 4;    // wrong parameters
+}
+
+service InventoryManager {
+    rpc GetGold(google.protobuf.Empty) returns (GoldResponse) {}
+
+    rpc GetEquipTab(google.protobuf.Empty) returns (InvSlotList) {}
+
+    rpc GetMainTab(google.protobuf.Empty) returns (InvSlotList) {}
+
+    rpc GetEtcTab(google.protobuf.Empty) returns (InvSlotList) {}
+
+    rpc GetInventorySlot(InventorySlotRequest) returns (InvSlot) {}
+
+    rpc FindItem(FindItemRequest) returns (InvSlot) {}
+
+    rpc UseItem(UseItemRequest) returns (UseItemResponse) {}
+
+    rpc UseItemOnTarget(UseItemOnTargetRequest) returns (UseItemResponse) {}
+}
+
+message GoldResponse {
+    int32 gold = 1;
+}
+
+message InvSlot {
+    InventoryTabType inv_tab = 1;
+    int32 index = 2;
+    int32 vnum = 3;
+    int32 quantity = 4;
+    string name = 5;
+}
+
+message InventorySlotRequest {
+    InventoryTabType inv_tab_type = 1;
+    int32 index = 2;
+}
+
+message FindItemRequest {
+    int32 vnum = 1;
+}
+
+message InvSlotList {
+    repeated InvSlot inv_slots = 1;
+}
+
+message UseItemRequest {
+    int32 vnum = 1;
+}
+
+message UseItemOnTargetRequest {
+    int32 vnum = 1;
+    int32 target_id = 2;
+    entities.EntityType target_type = 3;
+}
+
+message UseItemResponse {
+    UseItemResponseType response = 1;
+}

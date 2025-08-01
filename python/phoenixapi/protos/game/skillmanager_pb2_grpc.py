@@ -35,10 +35,10 @@ class SkillManagerStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetSkills = channel.unary_stream(
+        self.GetSkills = channel.unary_unary(
                 '/phoenix.game.SkillManager/GetSkills',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-                response_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.FromString,
+                response_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.SkillList.FromString,
                 _registered_method=True)
         self.FindSkillFromId = channel.unary_unary(
                 '/phoenix.game.SkillManager/FindSkillFromId',
@@ -76,10 +76,10 @@ class SkillManagerServicer(object):
 
 def add_SkillManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetSkills': grpc.unary_stream_rpc_method_handler(
+            'GetSkills': grpc.unary_unary_rpc_method_handler(
                     servicer.GetSkills,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                    response_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.SerializeToString,
+                    response_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.SkillList.SerializeToString,
             ),
             'FindSkillFromId': grpc.unary_unary_rpc_method_handler(
                     servicer.FindSkillFromId,
@@ -113,12 +113,12 @@ class SkillManager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(
+        return grpc.experimental.unary_unary(
             request,
             target,
             '/phoenix.game.SkillManager/GetSkills',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.FromString,
+            phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.SkillList.FromString,
             options,
             channel_credentials,
             insecure,
