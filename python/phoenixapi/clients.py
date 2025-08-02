@@ -14,6 +14,8 @@ from phoenixapi.protos.game.scenemanager_pb2_grpc import SceneManagerStub
 from phoenixapi.protos.game.scenemanager_pb2 import FindRequest, MapGrid
 from phoenixapi.protos.game.inventorymanager_pb2_grpc import InventoryManagerStub
 from phoenixapi.protos.game.inventorymanager_pb2 import InvSlot, InvSlotList, InventorySlotRequest, GoldResponse, InventoryTabType, FindItemRequest, UseItemResponseType, UseItemRequest, UseItemResponse, UseItemOnTargetRequest
+from phoenixapi.protos.game.petmanager_pb2_grpc import PetManagerStub
+from phoenixapi.protos.game.petmanager_pb2 import PetObjManager, PetStateRequest, PetState, PetObjManagerList, AutoAttackRequest
 
 class PlayerManagerClient:
     """Allows querying data from your character and performing actions with it"""
@@ -115,16 +117,42 @@ class SkillManagerClient:
         return list(skill_list.skills)
     
     def find_skill_from_vnum(self, vnum: int) -> Skill:
-        """Returns the skill matching the vnum"""
         request = FindSkillFromVnumRequest()
         request.vnum = vnum
         return self._stub.FindSkillFromVnum(request)
     
     def find_skill_from_id(self, id: int) -> Skill:
-        """Returns the skill matching the id"""
         request = FindSkillFromIdRequest()
         request.id = id
         return self._stub.FindSkillFromId(request)
+    
+    def get_pet_skills(self) -> list[Skill]:
+        skill_list = self._stub.GetPetSkills(Empty())
+        return list(skill_list.skills)
+    
+    def find_pet_skill_from_vnum(self, vnum: int) -> Skill:
+        request = FindSkillFromVnumRequest()
+        request.vnum = vnum
+        return self._stub.FindPetSkillFromVnum(request)
+    
+    def find_pet_skill_from_id(self, id: int) -> Skill:
+        request = FindSkillFromIdRequest()
+        request.id = id
+        return self._stub.FindPetSkillFromId(request)
+    
+    def get_partner_skills(self) -> list[Skill]:
+        skill_list = self._stub.GetPartnerSkills(Empty())
+        return list(skill_list.skills)
+    
+    def find_partner_skill_from_vnum(self, vnum: int) -> Skill:
+        request = FindSkillFromVnumRequest()
+        request.vnum = vnum
+        return self._stub.FindPartnerSkillFromVnum(request)
+    
+    def find_partner_skill_from_id(self, id: int) -> Skill:
+        request = FindSkillFromIdRequest()
+        request.id = id
+        return self._stub.FindPartnerSkillFromId(request)
     
 
 class SceneManagerClient:
@@ -222,3 +250,51 @@ class InventoryManagerClient:
         request.target_id = target_id
         response = self._stub.UseItemOnTarget(request)
         return response.response
+    
+class PetManagerClient:
+    """Allows interaction with your pets"""
+
+    def __init__(self, channel: Channel):
+        self._stub = PetManagerStub(channel)
+
+    def get_pets(self) -> list[PetObjManager]:
+        pet_list: PetObjManagerList = self._stub.GetPets(Empty())
+        return list(pet_list.pets)
+    
+    def get_current_pet(self) -> PetObjManager:
+        return self._stub.GetCurrentPet(Empty())
+    
+    def get_current_partner(self) -> PetObjManager:
+        return self._stub.GetCurrentPartner(Empty())
+    
+    def set_pet_state(self, pet_id: int, state: PetState) -> None:
+        request = PetStateRequest()
+        request.pet_id = pet_id
+        request.new_state = state
+        self._stub.SetPetState(request)
+
+    def walk(self, x: int, y: int) -> None:
+        request = Position()
+        request.x = x
+        request.y = y
+        self._stub.Walk(request)
+
+    def auto_attack(self, entity_type: EntityType, entity_id: int) -> None:
+        request = AutoAttackRequest()
+        request.entity_id = entity_id
+        request.entity_type = entity_type
+        self._stub.AutoAttack(request)
+
+    def pet_attack(self, entity_type: EntityType, entity_id: int, skill_id: int) -> None:
+        request = AttackRequest()
+        request.entity_id = entity_id
+        request.entity_type = entity_type
+        request.skill_id = skill_id
+        self._stub.PetAttack(request)
+
+    def partner_attack(self, entity_type: EntityType, entity_id: int, skill_id: int) -> None:
+        request = AttackRequest()
+        request.entity_id = entity_id
+        request.entity_type = entity_type
+        request.skill_id = skill_id
+        self._stub.PartnerAttack(request)

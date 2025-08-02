@@ -50,6 +50,36 @@ class SkillManagerStub(object):
                 request_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromVnumRequest.SerializeToString,
                 response_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.FromString,
                 _registered_method=True)
+        self.GetPetSkills = channel.unary_unary(
+                '/phoenix.game.SkillManager/GetPetSkills',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.SkillList.FromString,
+                _registered_method=True)
+        self.FindPetSkillFromId = channel.unary_unary(
+                '/phoenix.game.SkillManager/FindPetSkillFromId',
+                request_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromIdRequest.SerializeToString,
+                response_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.FromString,
+                _registered_method=True)
+        self.FindPetSkillFromVnum = channel.unary_unary(
+                '/phoenix.game.SkillManager/FindPetSkillFromVnum',
+                request_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromVnumRequest.SerializeToString,
+                response_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.FromString,
+                _registered_method=True)
+        self.GetPartnerSkills = channel.unary_unary(
+                '/phoenix.game.SkillManager/GetPartnerSkills',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.SkillList.FromString,
+                _registered_method=True)
+        self.FindPartnerSkillFromId = channel.unary_unary(
+                '/phoenix.game.SkillManager/FindPartnerSkillFromId',
+                request_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromIdRequest.SerializeToString,
+                response_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.FromString,
+                _registered_method=True)
+        self.FindPartnerSkillFromVnum = channel.unary_unary(
+                '/phoenix.game.SkillManager/FindPartnerSkillFromVnum',
+                request_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromVnumRequest.SerializeToString,
+                response_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.FromString,
+                _registered_method=True)
 
 
 class SkillManagerServicer(object):
@@ -73,6 +103,42 @@ class SkillManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetPetSkills(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def FindPetSkillFromId(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def FindPetSkillFromVnum(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetPartnerSkills(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def FindPartnerSkillFromId(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def FindPartnerSkillFromVnum(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SkillManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -88,6 +154,36 @@ def add_SkillManagerServicer_to_server(servicer, server):
             ),
             'FindSkillFromVnum': grpc.unary_unary_rpc_method_handler(
                     servicer.FindSkillFromVnum,
+                    request_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromVnumRequest.FromString,
+                    response_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.SerializeToString,
+            ),
+            'GetPetSkills': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPetSkills,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.SkillList.SerializeToString,
+            ),
+            'FindPetSkillFromId': grpc.unary_unary_rpc_method_handler(
+                    servicer.FindPetSkillFromId,
+                    request_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromIdRequest.FromString,
+                    response_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.SerializeToString,
+            ),
+            'FindPetSkillFromVnum': grpc.unary_unary_rpc_method_handler(
+                    servicer.FindPetSkillFromVnum,
+                    request_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromVnumRequest.FromString,
+                    response_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.SerializeToString,
+            ),
+            'GetPartnerSkills': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPartnerSkills,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.SkillList.SerializeToString,
+            ),
+            'FindPartnerSkillFromId': grpc.unary_unary_rpc_method_handler(
+                    servicer.FindPartnerSkillFromId,
+                    request_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromIdRequest.FromString,
+                    response_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.SerializeToString,
+            ),
+            'FindPartnerSkillFromVnum': grpc.unary_unary_rpc_method_handler(
+                    servicer.FindPartnerSkillFromVnum,
                     request_deserializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromVnumRequest.FromString,
                     response_serializer=phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.SerializeToString,
             ),
@@ -171,6 +267,168 @@ class SkillManager(object):
             request,
             target,
             '/phoenix.game.SkillManager/FindSkillFromVnum',
+            phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromVnumRequest.SerializeToString,
+            phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetPetSkills(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/phoenix.game.SkillManager/GetPetSkills',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.SkillList.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def FindPetSkillFromId(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/phoenix.game.SkillManager/FindPetSkillFromId',
+            phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromIdRequest.SerializeToString,
+            phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def FindPetSkillFromVnum(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/phoenix.game.SkillManager/FindPetSkillFromVnum',
+            phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromVnumRequest.SerializeToString,
+            phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetPartnerSkills(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/phoenix.game.SkillManager/GetPartnerSkills',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.SkillList.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def FindPartnerSkillFromId(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/phoenix.game.SkillManager/FindPartnerSkillFromId',
+            phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromIdRequest.SerializeToString,
+            phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def FindPartnerSkillFromVnum(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/phoenix.game.SkillManager/FindPartnerSkillFromVnum',
             phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.FindSkillFromVnumRequest.SerializeToString,
             phoenixapi_dot_protos_dot_game_dot_skillmanager__pb2.Skill.FromString,
             options,

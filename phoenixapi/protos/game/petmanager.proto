@@ -5,7 +5,53 @@ package phoenix.game;
 import "google/protobuf/empty.proto";
 import "phoenixapi/protos/game/entities.proto";
 import "phoenixapi/protos/position.proto";
+import "phoenixapi/protos/game/playermanager.proto";
+
+enum PetState {
+    PET_STATE_D = 0;
+    PET_STATE_S = 5; // In this state your pet shouldn't attack any move neither move
+    PET_STATE_F = 7;
+    PET_STATE_WALK_AFTER_F = 8;
+    PET_STATE_A = 12;
+    PET_STATE_AFTER_A_CLICK = 15;
+    PET_STATE_S_AFTER_A_F = 17; // I believe in this state if a monster attack your pet it will attack back even if he is in S mode
+}
 
 service PetManager {
-    
+    rpc GetPets(google.protobuf.Empty) returns (PetObjManagerList) {}
+
+    rpc GetCurrentPet(google.protobuf.Empty) returns (PetObjManager) {}
+
+    rpc GetCurrentPartner(google.protobuf.Empty) returns (PetObjManager) {}
+
+    rpc SetPetState(PetStateRequest) returns (google.protobuf.Empty) {}
+
+    rpc Walk(Position) returns (google.protobuf.Empty) {}
+
+    rpc AutoAttack(AutoAttackRequest) returns (google.protobuf.Empty) {}
+
+    rpc PetAttack(AttackRequest) returns (google.protobuf.Empty) {}
+
+    rpc PartnerAttack(AttackRequest) returns (google.protobuf.Empty) {}
+}
+
+message PetObjManagerList {
+    repeated PetObjManager pets = 1;
+}
+
+message PetObjManager {
+    Position position = 1;
+    Position dest_position = 2;
+    PetState state = 3;
+    entities.Npc npc = 4;
+}
+
+message AutoAttackRequest {
+    entities.EntityType entity_type = 1;
+    sint32 entity_id = 2;
+}
+
+message PetStateRequest {
+    sint32 pet_id = 1;
+    PetState new_state = 2;
 }
