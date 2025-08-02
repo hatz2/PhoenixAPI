@@ -23,6 +23,18 @@ service SkillManager {
     rpc FindSkillFromId(FindSkillFromIdRequest) returns (Skill) {}
 
     rpc FindSkillFromVnum(FindSkillFromVnumRequest) returns (Skill) {}
+
+    rpc GetPetSkills(google.protobuf.Empty) returns (SkillList) {}
+
+    rpc FindPetSkillFromId(FindSkillFromIdRequest) returns (Skill) {}
+
+    rpc FindPetSkillFromVnum(FindSkillFromVnumRequest) returns (Skill) {}
+
+    rpc GetPartnerSkills(google.protobuf.Empty) returns (SkillList) {}
+
+    rpc FindPartnerSkillFromId(FindSkillFromIdRequest) returns (Skill) {}
+
+    rpc FindPartnerSkillFromVnum(FindSkillFromVnumRequest) returns (Skill) {}
 }
 
 message FindSkillFromVnumRequest {
