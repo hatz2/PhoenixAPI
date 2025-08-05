@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package phoenix.bot;
+
+import "google/protobuf/empty.proto";
+
+service Controller {
+    rpc StartFarmingBot(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+
+    rpc StopFarmingBot(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+
+    rpc ContinueFarmingBot(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+
+    rpc StartMinigameBot(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+
+    rpc StopMinigameBot(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+
+    rpc LoadSettings(LoadSettingsRequest) returns (google.protobuf.Empty) {}
+}
+
+message LoadSettingsRequest {
+    string ini_file_path = 1;
+}

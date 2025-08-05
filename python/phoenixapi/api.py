@@ -2,7 +2,6 @@
 import grpc
 from phoenixapi.clients import *
 
-
 class Phoenix:
     """Main API Class. Contains all posible clients that you can interact with."""
 
@@ -15,3 +14,4 @@ class Phoenix:
         self.scene_manager = SceneManagerClient(channel)
         self.inventory = InventoryManagerClient(channel)
         self.pet_manager = PetManagerClient(channel)
+        self.controller = ControllerClient(channel)
