@@ -25,10 +25,10 @@ service PlayerManager {
 message PlayerObjManager {
     Position position = 1;
     Position dest_position = 2;
-    int32 state = 5; // temp as int32
-    entities.Player player = 6; // your character player data
-    sint32 id = 7;
-    bool is_resting = 8;
+    int32 state = 3; // temp as int32
+    entities.Player player = 4; // your character player data
+    sint32 id = 5;
+    bool is_resting = 6;
 }
 
 message AttackRequest {
