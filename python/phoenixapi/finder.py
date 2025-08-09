@@ -3,7 +3,7 @@ from win32gui import EnumWindows, GetWindowText
 from re import search
 from ctypes.wintypes import HWND, LPARAM
 from time import sleep
-from .api import Phoenix
+from api import Phoenix
 
 _ports: list[int] = []
 
@@ -18,7 +18,7 @@ def create_apis_from_names(character_names: list[str]) -> list[tuple[str, Phoeni
     Create API instances from a list of character names.
 
     Returns:
-        list[tuple[str, phoenix.Api]]: A list of tuples containing character names and their corresponding API instances.
+        list[tuple[str, Phoenix]]: A list of tuples containing character names and their corresponding API instances.
     
     Raises:
         RuntimeError: If no bots are running or not all bots with the given character names are found.
@@ -51,7 +51,7 @@ def create_api_from_name(character_name: str) -> Phoenix:
     Create an instance of the API class from the character's name.
 
     Returns:
-        phoenix.Api: An instance of the API class.
+        Phoenix: An instance of the API class.
     
     Raises:
         RuntimeError: If no bot with that name is found or no bots are running.
