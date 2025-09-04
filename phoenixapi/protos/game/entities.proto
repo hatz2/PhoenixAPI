@@ -1,9 +1,13 @@
+/**
+ * Entities related messages and enums
+ */
 syntax = "proto3";
 
 package phoenix.game.entities;
 
 import "phoenixapi/protos/position.proto";
 
+// Direction where an entity is facing to.
 enum Direction {
     DIRECTION_UP = 0;
     DIRECTION_RIGHT = 1;
@@ -15,6 +19,7 @@ enum Direction {
     DIRECTION_DOWN_LEFT = 7;
 }
 
+// All entity types in the game.
 enum EntityType {
     ENTITY_TYPE_UNSPECIFIED = 0;
     ENTITY_TYPE_PLAYER = 1;
@@ -23,56 +28,62 @@ enum EntityType {
     ENTITY_TYPE_ITEM = 4;
 }
 
+// The base entity class for every entity in the game.
 message BaseEntity {
-    EntityType type = 1;
-    sint32 id = 2;
-    Position position = 3;
+    EntityType type = 1; // The type of entity.
+    sint32 id = 2; // The unique ID of this entity.
+    Position position = 3; // The 2D position of the entity.
 }
 
+// Contains the data of every movable entity in the game. It is a child of BaseEntity. The parent is the field base_entity as protoc doesn't support inheritance.
 message MovableEntity {
-    BaseEntity base_entity = 1;
-    Direction direction = 2;
-    int32 animation_status = 3; // temp as int32
-    int32 speed = 4;
-    bool is_in_combat = 5;
-    int32 health_percent = 6;
-    int32 mana_percent = 7;
-    int32 level = 8;
-    int32 champion_level = 9;
-    bool is_partner = 10;
-    sint32 owner_id = 11;
-    sint32 current_map_id = 12;
+    BaseEntity base_entity = 1; // Parent.
+    Direction direction = 2; // Direction where the entity is facing.
+    int32 animation_status = 3; // The current animation state. It is represented as an int32 but this should be an enum.
+    int32 speed = 4; // Walking speed.
+    bool is_in_combat = 5; // Controls wether the entity is in combat or not.
+    int32 health_percent = 6; // Health percent from 0 to 100.
+    int32 mana_percent = 7; // Mana percent from 0 to 100.
+    int32 level = 8; // Normal level.
+    int32 champion_level = 9; // Champion level.
+    bool is_partner = 10; // Controls wether the entity is a partner or not.
+    sint32 owner_id = 11; // The ID of the entity that owns this object. Mainly used in dropped items.
+    sint32 current_map_id = 12; // The current map ID.
 }
 
+// Contains player related data. It inherits from MovableEntity.
 message Player {
-    MovableEntity movable_entity = 1;
-    sint32 sp = 2; // temp as int32 can be negative
-    string name = 3;
-    string title = 4;
-    string family = 5;
-    bool is_gm = 6;
-    int32 reputation = 7; // temp as int32
+    MovableEntity movable_entity = 1; // Parent.
+    sint32 sp = 2; // Number of the SP that the player is wearing. It is represented as an int32 but this should be an enum.
+    string name = 3; // Name of the player.
+    string title = 4; // Title the player is using.
+    string family = 5; // The family the player belongs to.
+    bool is_gm = 6; // Controls wether this player is a GM with purple nickname or not
+    int32 reputation = 7; // Number of the reputation rank. It is represented as an int32 but this should be an enum.
 }
 
+// Contains monster related data. It inherits from MovableEntity.
 message Monster {
-    MovableEntity movable_entity = 1;
-    int32 vnum = 2;
-    string name = 3;
-    int32 race = 4; // temp as int32
-    int32 skin_id = 5;
-    bool is_boss = 6;
+    MovableEntity movable_entity = 1; // Parent.
+    int32 vnum = 2; // Identifier for the type of monster.
+    string name = 3; // Name of the monster.
+    int32 race = 4; // Number of the race rank. It is represented as an int32 but this should be an enum.
+    int32 skin_id = 5; // Identifier of the skin texture of the monster.
+    bool is_boss = 6; // Controls wether this monster is a boss or not (green dot in the minimap).
 }
 
+// Contains item related data. It inherits from BaseEntity as items in the ground doesn't move.
 message Item {
-    BaseEntity base_entity = 1;
-    int32 vnum = 2;
-    int32 quantity = 3;
-    int32 owner_id = 4;
-    bool is_quest_item = 5;
-    string name = 6;
+    BaseEntity base_entity = 1; // Parent.
+    int32 vnum = 2; // Identifier for the type of item.
+    int32 quantity = 3; // Number of items stacked together.
+    int32 owner_id = 4; // ID of the object that owns this item.
+    bool is_quest_item = 5; // Controls wether this item is for a quest or not.
+    string name = 6; // Name of the item.
 }
 
+// Contains npc related data. It inherits from Monster. Apart from common npcs as you are used to see in the game, other objects like ice flowers, lettuce and time-spaces are also from the Npc type.
 message Npc {
-    Monster monster = 1;
-    string name = 2;
+    Monster monster = 1; // Parent.
+    string name = 2; // Name of the NPC.
 }

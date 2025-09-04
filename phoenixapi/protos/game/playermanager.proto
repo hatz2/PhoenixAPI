@@ -1,3 +1,6 @@
+/**
+ * Player related service and messages.
+ */
 syntax = "proto3";
 
 package phoenix.game;
@@ -6,47 +9,60 @@ import "google/protobuf/empty.proto";
 import "phoenixapi/protos/game/entities.proto";
 import "phoenixapi/protos/position.proto";
 
+// Services that allos you to read information about your player and perform actions with it.
 service PlayerManager {
+    // Returns informatin about your player.
     rpc GetPlayerObjManager(google.protobuf.Empty) returns (PlayerObjManager) {}
 
+    // Resets the current player state (same as walking while you are attacking).
     rpc ResetPlayerState(google.protobuf.Empty) returns (google.protobuf.Empty) {}
 
+    // Walks your player to the specified 2D position.
     rpc Walk(Position) returns (google.protobuf.Empty) {}
 
+    // Attack a target using a skill.
     rpc Attack(AttackRequest) returns (google.protobuf.Empty) {}
 
+    // Picks up an item in the ground.
     rpc PickUp(PickUpRequest) returns (google.protobuf.Empty) {}
 
+    // Collect an NPC like ice flower, lettuce, etc.
     rpc Collect(CollectRequest) returns (google.protobuf.Empty) {}
 
+    // Target an entity.
     rpc Target(TargetRequest) returns (google.protobuf.Empty) {}
 }
 
+// Message that contains the player information.
 message PlayerObjManager {
-    Position position = 1;
-    Position dest_position = 2;
-    int32 state = 3; // temp as int32
-    entities.Player player = 4; // your character player data
-    sint32 id = 5;
-    bool is_resting = 6;
+    Position position = 1; // Current 2D position of the player.
+    Position dest_position = 2; // Destiny 2D position the player is walking towards.
+    int32 state = 3; // The state of the player. It is represented as an int32 but this should be an enum.
+    entities.Player player = 4; // The Player object of your character.
+    sint32 id = 5; // The ID of your character.
+    bool is_resting = 6; // Controls wether the character is resting or not.
 }
 
+// Message request to attack.
 message AttackRequest {
-    entities.EntityType entity_type = 1;
-    sint32 entity_id = 2;
-    sint32 skill_id = 3;
+    entities.EntityType entity_type = 1; // The entity type you want to attack.
+    sint32 entity_id = 2; // The entity ID you want to attack.
+    sint32 skill_id = 3; // The skill ID you want to use.
 }
 
+// Message request to pick up an item.
 message PickUpRequest {
-    sint32 item_id = 1;
+    sint32 item_id = 1; // The item ID.
 }
 
+// Message request to collect an NPC.
 message CollectRequest {
-    sint32 npc_id = 2;
+    sint32 npc_id = 2; // The NPC ID.
 }
 
+// Message request to target an entity.
 message TargetRequest {
-    entities.EntityType entity_type = 1;
-    sint32 entity_id = 2;
+    entities.EntityType entity_type = 1; // The entity type.
+    sint32 entity_id = 2; // The entity ID.
 }
 

@@ -1,39 +1,54 @@
+/**
+ * Skill related service and messages.
+ */
 syntax = "proto3";
 
 package phoenix.game;
 
 import "google/protobuf/empty.proto";
 
+// The type of skill.
 enum SkillType {
-    SKILL_TYPE_DAMAGE = 0;
-    SKILL_TYPE_DEBUFF = 1;
-    SKILL_TYPE_BUFF = 2;
+    SKILL_TYPE_DAMAGE = 0; // The skill deals damage to the target.
+    SKILL_TYPE_DEBUFF = 1; // The skill puts a debuff on the target.
+    SKILL_TYPE_BUFF = 2; // The skill is a buff for players.
 }
 
+// The type of skill target.
 enum TargetType {
-    TARGET_TYPE_TARGET = 0;
-    TARGET_TYPE_SELF = 1;
-    TARGET_TYPE_SELF_OR_TARGET = 2;
-    TARGET_TYPE_NO_TARGET = 3;
+    TARGET_TYPE_TARGET = 0; // Needs a target to be casted.
+    TARGET_TYPE_SELF = 1; // Skill is casted on yourself.
+    TARGET_TYPE_SELF_OR_TARGET = 2; // Skill can be casted on yourself or on a target.
+    TARGET_TYPE_NO_TARGET = 3; // No target needed for the skill.
 }
 
+// Service that allows reading your character skills.
 service SkillManager {
+    // Returns a list with all your skills.
     rpc GetSkills(google.protobuf.Empty) returns (SkillList) {}
 
+    // Search for a skill using its ID.
     rpc FindSkillFromId(FindSkillFromIdRequest) returns (Skill) {}
 
+    // Search for a skill using its VNUM.
     rpc FindSkillFromVnum(FindSkillFromVnumRequest) returns (Skill) {}
 
+    // Returns a list with your pet skills.
     rpc GetPetSkills(google.protobuf.Empty) returns (SkillList) {}
 
+    // Search for your pet skill using its ID.
     rpc FindPetSkillFromId(FindSkillFromIdRequest) returns (Skill) {}
 
+    // Search for your pet skill using its VNUM.
     rpc FindPetSkillFromVnum(FindSkillFromVnumRequest) returns (Skill) {}
 
+    // Returns a list with your partner skills.
     rpc GetPartnerSkills(google.protobuf.Empty) returns (SkillList) {}
 
+    // Search for your partner skill using its ID.
     rpc FindPartnerSkillFromId(FindSkillFromIdRequest) returns (Skill) {}
 
+    // Search for your partner skill using its VNUM.
     rpc FindPartnerSkillFromVnum(FindSkillFromVnumRequest) returns (Skill) {}
 }
 
@@ -45,18 +60,19 @@ message FindSkillFromIdRequest {
     sint32 id = 1;
 }
 
+// Message that contains the skill information.
 message Skill {
-    sint32 vnum = 1;
-    string name = 2;
-    sint32 id = 3;
-    SkillType type = 4;
-    int32 range = 5;
-    int32 area = 6;
-    int32 cast_time = 7;
-    int32 cool_time = 8;
-    int32 mana_cost = 9;
+    sint32 vnum = 1; // Unique ID that represents this skill. Different for every skill in the game.
+    string name = 2; // Name of the skill.
+    sint32 id = 3; // ID of the skill in the skill inventory.
+    SkillType type = 4; // The type of the skill.
+    int32 range = 5; // The range of the skill.
+    int32 area = 6; // The hit area of the skill.
+    int32 cast_time = 7; // The cast time of the skill.
+    int32 cool_time = 8; // The cooldown time of the skill.
+    int32 mana_cost = 9; // The mana cost of the skill.
 }
 
 message SkillList {
-    repeated Skill skills = 1;
+    repeated Skill skills = 1; // List of skills.
 }

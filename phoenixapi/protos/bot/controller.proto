@@ -1,9 +1,13 @@
+/**
+ * Service and messages to control and interact with phoenix bot.
+ */
 syntax = "proto3";
 
 package phoenix.bot;
 
 import "google/protobuf/empty.proto";
 
+// Service that allows you to interact with the bot.
 service Controller {
     rpc StartFarmingBot(google.protobuf.Empty) returns (google.protobuf.Empty) {}
 
