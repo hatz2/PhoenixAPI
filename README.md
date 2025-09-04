@@ -6,4 +6,4 @@ The API is built using gRPC and Protocol Buffers, ensuring efficient communicati
 
 For more information about Phoenix Bot, please visit the [official website](https://phoenix-bot.xyz/) or join our [Discord community](https://discord.com/invite/phoenix-bot).
 
-If you are looking for the old API documentation, you can find it [here]().
+If you are looking for the old API documentation, you can find it [here](https://github.com/hatz2/PhoenixAPI/tree/v1).
