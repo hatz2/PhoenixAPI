@@ -1,0 +1,84 @@
+/**
+ * Service and messages related to the game scene.
+ */
+syntax = "proto3";
+
+package phoenix.game;
+
+import "google/protobuf/empty.proto";
+import "phoenixapi/protos/game/entities.proto";
+
+// Services that allows you to read information about the map you are in.
+service SceneManager {
+    // Returns a list of the players in the map.
+    rpc GetPlayers(google.protobuf.Empty) returns (PlayerList) {}
+
+    // Returns a list of monsters in the map.
+    rpc GetMonsters(google.protobuf.Empty) returns (MonsterList) {}
+
+    // Returns a list of items in the map.
+    rpc GetItems(google.protobuf.Empty) returns (ItemList) {}
+
+    // Returns a list of npcs in the map.
+    rpc GetNpcs(google.protobuf.Empty) returns (NpcList) {}
+
+    // Search for the specified player within the map.
+    rpc FindPlayer(FindRequest) returns (entities.Player) {}
+
+    // Search for the specified monster within the map.
+    rpc FindMonster(FindRequest) returns (entities.Monster) {}
+
+    // Search for the specified item within the map.
+    rpc FindItem(FindRequest) returns (entities.Item) {}
+
+    // Search for the specified npc within the map.
+    rpc FindNpc(FindRequest) returns (entities.Npc) {}
+
+    // Returns a list of all the bosses within the map.
+    rpc GetAllBosses(google.protobuf.Empty) returns (MonsterList) {}
+
+    // Returns the map grid.
+    rpc GetMapGrid(google.protobuf.Empty) returns (MapGrid) {}
+}
+
+// Message request to find an entity within the map.
+message FindRequest {
+    sint32 id = 1; // The ID of the entity.
+}
+
+// The type of cells in the map grid.
+enum CellType {
+    CELL_TYPE_WALKABLE = 0; // You can walk in this type of cells.
+    CELL_TYPE_OBSTACLE = 1; // You can't walk in this type of cells.
+    CELL_TYPE_OBSTACLE_2 = 2; // You can't walk in this type of cells.
+}
+
+// Message that contains the map grid information.
+message MapGrid {
+    sint32 width = 1; // Width of the map grid.
+    sint32 height = 2; // Height of the map grid.
+    repeated Row rows = 3; // List of rows of the grid.
+}
+
+// A row is a list of cells.
+message Row {
+    repeated CellType cells = 1; // The list of cells for the row.
+}
+
+message PlayerList {
+    repeated entities.Player players = 1; // List of players.
+}
+
+message MonsterList {
+    repeated entities.Monster monsters = 1; // List of monsters.
+}
+
+message NpcList {
+    repeated entities.Npc npcs = 1; // List of npcs.
+}
+
+message ItemList {
+    repeated entities.Item items = 1; // List of items.
+}
+
+

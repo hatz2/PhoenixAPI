@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package phoenix;
+
+// 2D position starting at (0, 0) top left of the map.
+message Position {
+    int32 x = 1;
+    int32 y = 2;
+}

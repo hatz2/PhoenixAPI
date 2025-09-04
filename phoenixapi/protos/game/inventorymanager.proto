@@ -1,0 +1,99 @@
+/**
+ * Inventory related service and messages.
+ */
+syntax = "proto3";
+
+package phoenix.game;
+
+import "google/protobuf/empty.proto";
+import "phoenixapi/protos/game/entities.proto";
+
+// Represents the inventory tabs.
+enum InventoryTabType {
+    INVENTORY_TAB_TYPE_EQUIP = 0;
+    INVENTORY_TAB_TYPE_MAIN = 1;
+    INVENTORY_TAB_TYPE_ETC = 2;
+}
+
+// Message received when using an item.
+enum UseItemResponseType {
+    USE_ITEM_RESPONSE_TYPE_UNSPECIFIED = 0;         // Unknown error.
+    USE_ITEM_RESPONSE_TYPE_USED = 1;                // Used correctly.
+    USE_ITEM_RESPONSE_TYPE_NOT_FOUND = 2;           // Not enough quantity to use the item.
+    USE_ITEM_RESPONSE_TYPE_TARGET_NOT_FOUND = 3;    // Target entity not found.
+    USE_ITEM_RESPONSE_TYPE_WRONG_PARAMETERS = 4;    // Wrong parameters.
+}
+
+// Service for interacting with the inventory.
+service InventoryManager {
+    // Returns the gold that you have in your inventory.
+    rpc GetGold(google.protobuf.Empty) returns (GoldResponse) {}
+
+    // Returns all the slots in the inventory EQUIP tab.
+    rpc GetEquipTab(google.protobuf.Empty) returns (InvSlotList) {}
+
+    // Returns all the slots in the inventory MAIN tab.
+    rpc GetMainTab(google.protobuf.Empty) returns (InvSlotList) {}
+
+    // Returns all the slots in the inventory ETC tab.
+    rpc GetEtcTab(google.protobuf.Empty) returns (InvSlotList) {}
+
+    // Returns a specific slot from the specified inventory tab and index.
+    rpc GetInventorySlot(InventorySlotRequest) returns (InvSlot) {}
+
+    // Searchs for the specified item and return its slot if the item was found.
+    rpc FindItem(FindItemRequest) returns (InvSlot) {}
+
+    // Use the specified item and returns a status.
+    rpc UseItem(UseItemRequest) returns (UseItemResponse) {}
+
+    // Use the specified item on the specified target and returs a status.
+    rpc UseItemOnTarget(UseItemOnTargetRequest) returns (UseItemResponse) {}
+}
+
+// Response with the gold in the inventory.
+message GoldResponse {
+    int32 gold = 1;
+}
+
+// Contains information about an inventory slot.
+message InvSlot {
+    InventoryTabType inv_tab = 1; // The inventory tab.
+    int32 index = 2; // The index of the slot within the tab (starts at 0).
+    int32 vnum = 3; // The unique ID that identifies the type of item. 
+    int32 quantity = 4; // The number of items in the slot. 
+    string name = 5; // The name of the item in the slot.
+}
+
+// Message to request a specific inventory slot.
+message InventorySlotRequest {
+    InventoryTabType inv_tab_type = 1; // The inventory tab.
+    int32 index = 2; // The index withing the tab.
+}
+
+// Message request to find an item in the inventory.
+message FindItemRequest {
+    int32 vnum = 1;
+}
+
+// A list of inventory slots.
+message InvSlotList {
+    repeated InvSlot inv_slots = 1; // List of inventory slots.
+}
+
+// Message request for using an item.
+message UseItemRequest {
+    int32 vnum = 1; // The unique ID that identifies the type of item.
+}
+
+// Message request for using an item in a specific target.
+message UseItemOnTargetRequest {
+    int32 vnum = 1; // The unique ID that identifies the type of item.
+    int32 target_id = 2; // The ID of the target.
+    entities.EntityType target_type = 3; // The entity type of the target.
+}
+
+// Response message received when using an item as confirmation or error code.
+message UseItemResponse {
+    UseItemResponseType response = 1;
+}

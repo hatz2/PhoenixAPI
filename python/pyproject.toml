@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling >= 1.26", "grpcio >= 1.73.1", "pywin32 >= 311"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["phoenixapi"]
+
+[project]
+name = "phoenix-bot-api"
+version = "0.0.2"
+authors = [{ name = "Hatz" }]
+description = "Python client for Phoenix API"
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+GitHub = "https://github.com/hatz2/PhoenixAPI"
