@@ -1,17 +1,15 @@
+from .client_socket import ClientSocket
+from phoenixapi.clients import PlayerObjManagerClient
 
-import grpc
-from phoenixapi.clients import *
 
-class Phoenix:
-    """Main API Class. Contains all posible clients that you can interact with."""
+    
+class PhoenixApi:
+    def __init__(self, port: int):
+        socket = ClientSocket(port)
+        
+        self.player_obj_manager = PlayerObjManagerClient(socket)
 
-    def __init__(self, port):
-        channel = grpc.insecure_channel(f"localhost:{port}")
+        # TODO: Instantiate client service consumers
 
-        self.player_manager = PlayerManagerClient(channel)
-        self.packet_manager = PacketManagerClient(channel)
-        self.skill_manager = SkillManagerClient(channel)
-        self.scene_manager = SceneManagerClient(channel)
-        self.inventory = InventoryManagerClient(channel)
-        self.pet_manager = PetManagerClient(channel)
-        self.controller = ControllerClient(channel)
+
+

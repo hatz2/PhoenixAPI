@@ -3,7 +3,7 @@ from win32gui import EnumWindows, GetWindowText
 from re import search
 from ctypes.wintypes import HWND, LPARAM
 from time import sleep
-from api import PhoenixApi
+from .api import PhoenixApi
 
 _ports: list[int] = []
 
@@ -35,7 +35,7 @@ def create_apis_from_names(character_names: list[str]) -> list[tuple[str, Phoeni
 
         # Ask the bot to give us the player name
         player_obj_manager = api.player_obj_manager.get_player_obj_manager()
-        name = player_obj_manager.player.name
+        name = player_obj_manager["player"]["name"]
 
         if name in character_names:
             character_names.remove(name)
@@ -67,7 +67,7 @@ def create_api_from_name(character_name: str) -> PhoenixApi:
 
         # Ask the bot to give us the player name
         player_obj_manager = api.player_obj_manager.get_player_obj_manager()
-        name = player_obj_manager.player.name
+        name = player_obj_manager["player"]["name"]
 
         if name == character_name:
             return api
