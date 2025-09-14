@@ -33,8 +33,6 @@ class Player(TypedDict):
     mana_percent: int
     level: int
     champion_level: int
-    is_partner: bool
-    owner_id: int
     current_map_id: int
     sp: int
     name: str

@@ -1,6 +1,4 @@
-from phoenixapi.clients import PlayerObjManager, PlayerObjManagerClient
 from phoenixapi.api import PhoenixApi
-from phoenixapi.entities import EntityType
 from phoenixapi.finder import create_api_from_name
 import dotenv
 import os

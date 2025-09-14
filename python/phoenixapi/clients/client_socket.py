@@ -22,6 +22,7 @@ class ClientSocket:
     def request(self, request_data: Request) -> Response:
         self._send(json.dumps(request_data))
         response = Response(json.loads(self._recv()))
+        self._validate_response(response)
         return response
         
     def _send(self, data: str):
@@ -46,3 +47,7 @@ class ClientSocket:
             finish = chunk.endswith(ClientSocket.DELIM_CHAR.encode())
 
         return b''.join(chunks)[:-1].decode()
+    
+    def _validate_response(self, response: Response) -> None:
+        if response["status"] == "error":
+            raise RuntimeError(response["error_message"])
