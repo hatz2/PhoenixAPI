@@ -31,7 +31,11 @@ class PlayerObjManagerClient(Client):
 
         response = self._socket.request(request_data)
 
+        if response["status"] == "error":
+            raise RuntimeError(response["error_message"])
+        
         return PlayerObjManager(response["result"])
+            
 
     def walk(self, x: int, y: int) -> Response:
         request_data: Request = {
