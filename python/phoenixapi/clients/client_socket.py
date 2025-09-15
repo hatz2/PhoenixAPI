@@ -19,6 +19,9 @@ class ClientSocket:
         self._socket = socket(AF_INET, SOCK_STREAM)
         self._socket.connect(("localhost", port))
 
+    def __del__(self):
+        self._socket.close()
+
     def request(self, request_data: Request) -> Response:
         self._send(json.dumps(request_data))
         response = Response(json.loads(self._recv()))
