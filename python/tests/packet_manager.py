@@ -8,7 +8,6 @@ def run():
     api: PhoenixApi = create_api_from_name(os.environ.get("CHAR_NAME"))
 
     # api.packet_manager.send("u_s 0 3 3070")
-    api.packet_manager.recv("tc_info 56 LagMachine16 0 0 3 1 -1 - 11 1 1 5 7 1 5 7 1 5 7 0 0 10000 0 0 0 -1 0 0 0 0 10 0 0 0 0 0 0 0 833")
 
     # api.packet_manager.subscribe()
 
