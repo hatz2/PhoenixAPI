@@ -2,7 +2,7 @@ from .clients.client_socket import ClientSocket
 from .clients.player_manager import PlayerObjManagerClient
 from .clients.scene_manager import SceneManagerClient
 from .clients.packet_manager import PacketManager
-
+from .clients.skill_manager import SkillManager
     
 class PhoenixApi:
     def __init__(self, port: int):
@@ -11,3 +11,4 @@ class PhoenixApi:
         self.player_obj_manager = PlayerObjManagerClient(socket)
         self.scene_manager = SceneManagerClient(socket)
         self.packet_manager = PacketManager(socket)
+        self.skill_manager = SkillManager(socket)
