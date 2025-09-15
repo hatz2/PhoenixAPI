@@ -2,6 +2,6 @@ from tests import *
 
 if __name__ == "__main__":
     try:
-        inventory_manager.run()
+        bot_controller.run()
     except RuntimeError as e:
         print(e)
