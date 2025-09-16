@@ -41,7 +41,7 @@ class BotController(Client):
     def stop_minigame_bot(self) -> Response:
         request: Request = {
             "service": self._service_name,
-            "method": "stopFarmingBot",
+            "method": "stopMinigameBot",
             "params": {}
         }
         return self._socket.request(request)
