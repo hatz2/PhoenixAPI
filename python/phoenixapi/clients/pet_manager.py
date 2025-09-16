@@ -21,11 +21,14 @@ class PetObjManager(TypedDict):
     pet: Npc
 
 
-class PetManager(Client):
+class PetManagerClient(Client):
+    """This client allows you to get information about your pets and perform actions with them like walking or attacking."""
+
     def __init__(self, socket: ClientSocket):
         super().__init__("PetManagerService", socket)
 
     def get_pets(self) -> list[PetObjManager]:
+        """Returns a list with your current pets."""
         request: Request = {
             "service": self._service_name,
             "method": "getPets",
@@ -35,6 +38,7 @@ class PetManager(Client):
         return list(response["result"]["pets"])
 
     def get_current_pet(self) -> PetObjManager:
+        """Returns your current pet information."""
         request: Request = {
             "service": self._service_name,
             "method": "getCurrentPet",
@@ -44,6 +48,7 @@ class PetManager(Client):
         return PetObjManager(response["result"])
 
     def get_current_partner(self) -> PetObjManager:
+        """Returns your current partner information."""
         request: Request = {
             "service": self._service_name,
             "method": "getCurrentPartner",
@@ -53,6 +58,7 @@ class PetManager(Client):
         return PetObjManager(response["result"])
 
     def set_pet_state(self, pet_id: int, pet_state: PetState) -> Response:
+        """Changes the pet state to the specified state."""
         request: Request = {
             "service": self._service_name,
             "method": "setPetState",
@@ -64,6 +70,7 @@ class PetManager(Client):
         return self._socket.request(request)
 
     def walk(self, x: int, y: int) -> Response:
+        """Walks with all your current pets unless you put them on S state."""
         request: Request = {
             "service": self._service_name,
             "method": "walk",
@@ -75,6 +82,7 @@ class PetManager(Client):
         return self._socket.request(request)
 
     def auto_attack(self, entity_type: EntityType, entity_id: int) -> Response:
+        """Auto attack with all your current pets unless you put them on S state."""
         request: Request = {
             "service": self._service_name,
             "method": "autoAttack",
@@ -86,6 +94,7 @@ class PetManager(Client):
         return self._socket.request(request)
 
     def pet_attack(self, entity_type: EntityType, entity_id: int, skill_id: int) -> Response:
+        """Uses a pet skill on the specified target. If you want to use a skill that doesn't need a target you can set entity_type and entity_id to 0."""
         request: Request = {
             "service": self._service_name,
             "method": "petAttack",
@@ -98,6 +107,7 @@ class PetManager(Client):
         return self._socket.request(request)
 
     def partner_attack(self, entity_type: EntityType, entity_id: int, skill_id: int) -> Response:
+        """Uses a partner skill on the specified target. If you want to use a skill that doesn't need a target you can set entity_type and entity_id to 0."""
         request: Request = {
             "service": self._service_name,
             "method": "partnerAttack",

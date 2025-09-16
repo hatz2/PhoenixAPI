@@ -2,11 +2,13 @@ from .client_socket import ClientSocket, Request, Response
 from .base_client import Client
 
 
-class BotController(Client):
+class BotControllerClient(Client):
+    """This client allows you to interact with the bot directly. It has methods to start and stop the farming and minigame bot and also allows you to load custom settings."""
     def __init__(self, socket: ClientSocket):
         super().__init__("BotControllerService", socket)
 
     def start_farming_bot(self) -> Response:
+        """Starts the farming bot as if you press the Start button in the bot."""
         request: Request = {
             "service": self._service_name,
             "method": "startFarmingBot",
@@ -15,6 +17,7 @@ class BotController(Client):
         return self._socket.request(request)
 
     def stop_farming_bot(self) -> Response:
+        """Stops the farming bot as if you press the Stop button in the bot."""
         request: Request = {
             "service": self._service_name,
             "method": "stopFarmingBot",
@@ -23,6 +26,7 @@ class BotController(Client):
         return self._socket.request(request)
 
     def continue_farming_bot(self) -> Response:
+        """Continues the farming bot as if you press the Continue button in the bot."""
         request: Request = {
             "service": self._service_name,
             "method": "continueFarmingBot",
@@ -47,6 +51,7 @@ class BotController(Client):
         return self._socket.request(request)
 
     def load_settings(self, ini_file_path: str) -> Response:
+        """Loads a specific settings file into the bot."""
         request: Request = {
             "service": self._service_name,
             "method": "loadSettings",

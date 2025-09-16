@@ -21,6 +21,7 @@ class SceneManagerClient(Client):
         super().__init__("SceneManagerService", socket)
 
     def get_players(self) -> list[Player]:
+        """Returns a list with all the players in the map."""
         request: Request = {
             "service": self._service_name,
             "method": "getPlayers",
@@ -30,6 +31,7 @@ class SceneManagerClient(Client):
         return list(response["result"]["players"])
     
     def get_monsters(self) -> list[Monster]:
+        """Returns a list of all the monsters in the map."""
         request: Request = {
             "service": self._service_name,
             "method": "getMonsters",
@@ -39,6 +41,7 @@ class SceneManagerClient(Client):
         return list(response["result"]["monsters"])
     
     def get_items(self) -> list[Item]:
+        """Returns a list of all the items in the map."""
         request: Request = {
             "service": self._service_name,
             "method": "getItems",
@@ -48,6 +51,7 @@ class SceneManagerClient(Client):
         return list(response["result"]["items"])
     
     def get_npcs(self) -> list[Npc]:
+        """Returns a list of all the NPCs in the map."""
         request: Request = {
             "service": self._service_name,
             "method": "getNpcs",
@@ -57,6 +61,7 @@ class SceneManagerClient(Client):
         return list(response["result"]["npcs"])
     
     def find_player(self, player_id: int) -> Npc:
+        """Searchs for a player in the map. Returns the player object if found, otherwise returns an error."""
         request: Request = {
             "service": self._service_name,
             "method": "findPlayer",
@@ -68,6 +73,7 @@ class SceneManagerClient(Client):
         return Npc(response["result"])
     
     def find_monster(self, monster_id: int) -> Monster:
+        """Searchs for a monster in the map. Returns the monster object if found, otherwise returns an error."""
         request: Request = {
             "service": self._service_name,
             "method": "findMonster",
@@ -79,6 +85,7 @@ class SceneManagerClient(Client):
         return Monster(response["result"])
     
     def find_item(self, item_id: int) -> Item:
+        """Searchs for an item in the map. Returns the item object if found, otherwise returns an error."""
         request: Request = {
             "service": self._service_name,
             "method": "findItem",
@@ -90,6 +97,7 @@ class SceneManagerClient(Client):
         return Item(response["result"])
     
     def find_npc(self, npc_id: int) -> Npc:
+        """Searchs for an NPC in the map. Returns the NPC object if found, otherwise returns an error."""
         request: Request = {
             "service": self._service_name,
             "method": "findNpc",
@@ -101,6 +109,7 @@ class SceneManagerClient(Client):
         return Npc(response["result"])
     
     def get_all_bosses(self) -> list[Monster]:
+        """Returns a list with all the bosses in the map."""
         request: Request = {
             "service": self._service_name,
             "method": "getAllBosses",
@@ -110,6 +119,7 @@ class SceneManagerClient(Client):
         return list(response["result"]["bosses"])
     
     def get_map_grid(self) -> MapGrid:
+        """Returns the current map grid that tells you which cells are walkable and which ones are not."""
         request: Request = {
             "service": self._service_name,
             "method": "getMapGrid",

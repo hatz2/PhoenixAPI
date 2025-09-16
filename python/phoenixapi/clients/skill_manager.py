@@ -28,11 +28,13 @@ class Skill(TypedDict):
     mana_cost: int
 
 
-class SkillManager(Client):
+class SkillManagerClient(Client):
+    """This client allows you to get information about your player, pet and partner skills."""
     def __init__(self, socket: ClientSocket):
         super().__init__("SkillManagerService", socket)
 
     def get_skills(self) -> list[Skill]:
+        """Returns a list with all your player skills."""
         request: Request = {
             "service": self._service_name,
             "method": "getSkills",
@@ -42,6 +44,7 @@ class SkillManager(Client):
         return list(response["result"]["skills"])
 
     def find_skill_from_id(self, skill_id: int) -> Skill:
+        """Searchs for the skill with the given id. Returns the skill if found, otherwise returns an error."""
         request: Request = {
             "service": self._service_name,
             "method": "findSkillFromId",
@@ -53,6 +56,7 @@ class SkillManager(Client):
         return Skill(response["result"])
 
     def find_skill_from_vnum(self, vnum: int) -> Skill:
+        """Searchs for the skill with the given vnum. Returns the skill if found, otherwise returns an error."""
         request: Request = {
             "service": self._service_name,
             "method": "findSkillFromVnum",
@@ -64,6 +68,7 @@ class SkillManager(Client):
         return Skill(response["result"])
 
     def get_pet_skills(self) -> list[Skill]:
+        """Returns a list with all your pet skills."""
         request: Request = {
             "service": self._service_name,
             "method": "getPetSkills",
@@ -73,6 +78,7 @@ class SkillManager(Client):
         return list(response["result"]["skills"])
 
     def find_pet_skill_from_id(self, skill_id: int) -> Skill:
+        """Searchs for the pet skill with the given id. Returns the skill if found, otherwise returns an error."""
         request: Request = {
             "service": self._service_name,
             "method": "findPetSkillFromId",
@@ -84,6 +90,7 @@ class SkillManager(Client):
         return Skill(response["result"])
 
     def find_pet_skill_from_vnum(self, vnum: int) -> Skill:
+        """Searchs for the pet skill with the given vnum. Returns the skill if found, otherwise returns an error."""
         request: Request = {
             "service": self._service_name,
             "method": "findPetSkillFromVnum",
@@ -95,6 +102,7 @@ class SkillManager(Client):
         return Skill(response["result"])
 
     def get_partner_skills(self) -> list[Skill]:
+        """Returns a list with all your partner skills."""
         request: Request = {
             "service": self._service_name,
             "method": "getPartnerSkills",
@@ -104,6 +112,7 @@ class SkillManager(Client):
         return list(response["result"]["skills"])
 
     def find_partner_skill_from_id(self, skill_id: int) -> Skill:
+        """Searchs for the partner skill with the given id. Returns the skill if found, otherwise returns an error."""
         request: Request = {
             "service": self._service_name,
             "method": "findPartnerSkillFromId",
@@ -115,6 +124,7 @@ class SkillManager(Client):
         return Skill(response["result"])
 
     def find_partner_skill_from_vnum(self, vnum: int) -> Skill:
+        """Searchs for the partner skill with the given vnum. Returns the skill if found, otherwise returns an error."""
         request: Request = {
             "service": self._service_name,
             "method": "findPartnerSkillFromVnum",
