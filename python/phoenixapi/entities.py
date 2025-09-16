@@ -89,3 +89,4 @@ class Npc(TypedDict):
     skin_id: int
     is_boss: bool
     owner_id: int
+    is_partner: bool
