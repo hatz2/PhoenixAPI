@@ -6,6 +6,7 @@ from .clients.skill_manager import SkillManagerClient
 from .clients.pet_manager import PetManagerClient
 from .clients.inventory_manager import InventoryManagerClient
 from .clients.bot_controller import BotControllerClient
+from .clients.friend_manager import FriendManagerClient
     
 class PhoenixApi:
     def __init__(self, port: int):
@@ -18,3 +19,4 @@ class PhoenixApi:
         self.pet_manager = PetManagerClient(socket)
         self.inventory_manager = InventoryManagerClient(socket)
         self.bot_controller = BotControllerClient(socket)
+        self.friend_manager = FriendManagerClient(socket)
