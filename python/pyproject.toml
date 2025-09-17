@@ -7,7 +7,7 @@ packages = ["phoenixapi"]
 
 [project]
 name = "phoenix-bot-api"
-version = "1.0.0"
+version = "1.0.1"
 authors = [{ name = "Hatz" }]
 description = "Python client for Phoenix API"
 readme = "README.md"
@@ -18,6 +18,8 @@ classifiers = [
 ]
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
+
+dependencies = ["pywin32>=311"]
 
 [project.urls]
 GitHub = "https://github.com/hatz2/PhoenixAPI"
