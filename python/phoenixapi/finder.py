@@ -3,7 +3,7 @@ from win32gui import EnumWindows, GetWindowText
 from re import search
 from ctypes.wintypes import HWND, LPARAM
 from time import sleep
-from api import Phoenix
+from .api import PhoenixApi
 
 _ports: list[int] = []
 
@@ -13,12 +13,12 @@ def find_all_api_ports() -> list[int]:
     EnumWindows(_enum_windows_callback, 0)
     return _ports.copy()
 
-def create_apis_from_names(character_names: list[str]) -> list[tuple[str, Phoenix]]:
+def create_apis_from_names(character_names: list[str]) -> list[tuple[str, PhoenixApi]]:
     """
     Create API instances from a list of character names.
 
     Returns:
-        list[tuple[str, Phoenix]]: A list of tuples containing character names and their corresponding API instances.
+        list[tuple[str, PhoenixApi]]: A list of tuples containing character names and their corresponding API instances.
     
     Raises:
         RuntimeError: If no bots are running or not all bots with the given character names are found.
@@ -31,11 +31,11 @@ def create_apis_from_names(character_names: list[str]) -> list[tuple[str, Phoeni
         raise RuntimeError("No bot windows found.")
     
     for port in ports:
-        api = Phoenix(port)
+        api = PhoenixApi(port)
 
         # Ask the bot to give us the player name
-        player_obj_manager = api.player_manager.get_player_obj_manager()
-        name = player_obj_manager.player.name
+        player_obj_manager = api.player_obj_manager.get_player_obj_manager()
+        name = player_obj_manager["player"]["name"]
 
         if name in character_names:
             character_names.remove(name)
@@ -46,7 +46,7 @@ def create_apis_from_names(character_names: list[str]) -> list[tuple[str, Phoeni
     
     return apis
 
-def create_api_from_name(character_name: str) -> Phoenix:
+def create_api_from_name(character_name: str) -> PhoenixApi:
     """
     Create an instance of the API class from the character's name.
 
@@ -63,11 +63,11 @@ def create_api_from_name(character_name: str) -> Phoenix:
         raise RuntimeError("No bot windows found.")
 
     for port in ports:
-        api = Phoenix(port)
+        api = PhoenixApi(port)
 
         # Ask the bot to give us the player name
-        player_obj_manager = api.player_manager.get_player_obj_manager()
-        name = player_obj_manager.player.name
+        player_obj_manager = api.player_obj_manager.get_player_obj_manager()
+        name = player_obj_manager["player"]["name"]
 
         if name == character_name:
             return api
