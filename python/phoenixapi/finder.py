@@ -79,7 +79,7 @@ def _enum_windows_callback(hwnd: HWND, lparam: LPARAM) -> bool:
     window_title = GetWindowText(hwnd)
 
     if "- Phoenix Bot" in window_title:
-        match: str = search(r"Bot:\d+:(\d+)", window_title)
+        match: str = search(r"Bot:\d+ (\d+)", window_title)
 
         if match:
             port = (int)(match.group(1))
