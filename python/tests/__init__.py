@@ -6,3 +6,4 @@ from . import pet_manager
 from . import inventory_manager
 from . import bot_controller
 from . import friend_manager
+from . import login
