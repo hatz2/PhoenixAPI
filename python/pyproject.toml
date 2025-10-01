@@ -7,7 +7,7 @@ packages = ["phoenixapi"]
 
 [project]
 name = "phoenix-bot-api"
-version = "1.0.3"
+version = "1.0.4"
 authors = [{ name = "Hatz" }]
 description = "Python client for Phoenix API"
 readme = "README.md"
