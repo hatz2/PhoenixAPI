@@ -1,5 +1,6 @@
 from socket import socket, AF_INET, SOCK_STREAM
 from typing import TypedDict, NotRequired
+from threading import Lock
 import json
 
 class Request(TypedDict):
@@ -18,15 +19,17 @@ class ClientSocket:
     def __init__(self, port: int):
         self._socket = socket(AF_INET, SOCK_STREAM)
         self._socket.connect(("localhost", port))
+        self._mutex = Lock()
 
     def __del__(self):
         self._socket.close()
 
     def request(self, request_data: Request) -> Response:
-        self._send(json.dumps(request_data))
-        response = Response(json.loads(self._recv()))
-        self._validate_response(response)
-        return response
+        with self._mutex:
+            self._send(json.dumps(request_data))
+            response = Response(json.loads(self._recv()))
+            self._validate_response(response)
+            return response
         
     def _send(self, data: str):
         total_bytes_sent = 0
