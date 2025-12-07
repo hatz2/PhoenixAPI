@@ -1,5 +1,6 @@
 from .client_socket import ClientSocket, Request, Response
 from .base_client import Client
+from ..entities import EntityType
 
 
 class BotControllerClient(Client):
@@ -57,6 +58,18 @@ class BotControllerClient(Client):
             "method": "loadSettings",
             "params": {
                 "ini_file_path": ini_file_path
+            }
+        }
+        return self._socket.request(request)
+    
+    def attack(self, entity_type: EntityType, entity_id: int):
+        """Attacks the desired entity using the skills configured in the bot."""
+        request: Request = {
+            "service": self._service_name,
+            "method": "attack",
+            "params": {
+                "entity_type": entity_type,
+                "entity_id": entity_id,
             }
         }
         return self._socket.request(request)
