@@ -26,6 +26,7 @@ class Skill(TypedDict):
     cast_time: int
     cool_time: int
     mana_cost: int
+    is_ready: bool
 
 
 class SkillManagerClient(Client):
