@@ -38,6 +38,7 @@ class InvSlot(TypedDict):
     item_type: int
     item_subtype: int
     equip_slot: EquipSlot
+    is_limited: bool
 
 
 class InventoryManagerClient(Client):
